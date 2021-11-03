@@ -113,29 +113,24 @@ public class Library
             while (in.ready())
             {
                     tempRead = in.readLine().split("-");
+                Matcher matcherKey = null;
+                Matcher matcherValue = null;
                 if(typeDictionary==1)
                 {
                     matcherKeyOne = patternKeyOne.matcher(tempRead[0]);
                     matcherValueOne = patternValueOne.matcher(tempRead[1]);
+                    matcherKey = matcherKeyOne;
+                    matcherValue = matcherValueOne;
+
                 }
                 else if(typeDictionary == 2)
                 {
                     matcherKeyTwo = patternKeyTwo.matcher(tempRead[0]);
                     matcherValueTwo = patternValueTwo.matcher(tempRead[1]);
-                }
-
-                Matcher matcherKey;
-                Matcher matcherValue;
-                if(typeDictionary==1)
-                {
-                    matcherKey = matcherKeyOne;
-                    matcherValue = matcherValueOne;
-                }
-                else
-                {
                     matcherKey = matcherKeyTwo;
                     matcherValue = matcherKeyTwo;
                 }
+
 
                 if( matcherKey.matches() && matcherValue.matches())
                 {
