@@ -6,10 +6,21 @@ import java.util.regex.Pattern;
 
 public class Library
 {
+    private Pattern patternKeyOne = Pattern.compile("[A-Za-z]{4}");;
+    private Pattern patternValueOne = Pattern.compile("[а-яёА-ЯЁ]{4}");;
+    private Pattern patternKeyTwo = Pattern.compile("[0-9]{5}");
+    private Pattern patternValueTwo = Pattern.compile("[а-яёА-ЯЁ]{5}");
+
+    private Matcher matcherKeyOne;
+    private Matcher matcherValueOne;
+    private Matcher matcherKeyTwo;
+    private Matcher matcherValueTwo;
+
     private Scanner console = new Scanner(System.in);
     private LinkedHashMap<String,String> dictionary;
     private BufferedReader in;
     private BufferedWriter out;
+    private FileInputStream disc;
     private String path;
     String[] tempRead = new String[2];
     public Library(String fileName, int typeDictionary) throws IOException {
@@ -17,9 +28,8 @@ public class Library
         path = fileName;
         try
         {
-            in = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
-            out = new BufferedWriter(new FileWriter(path,true));
-            readPairs();
+            disc = new FileInputStream(path);
+            in = new BufferedReader(new InputStreamReader(disc));
             boolean flagWork = true;
             int consoleSelect = 0;
             String tempKey;
@@ -30,14 +40,13 @@ public class Library
             {
                 System.out.print("Что вы хотите:\n1.Показать содерижмое соваря\n2.Добавить запись\n3.Удалить запись\n4.Пойск записи по ключу\n" +
                         "5.Закончить работу с этим словарем\nВаш выбор:");
-                if(console.hasNextInt())
-                {
-                    consoleSelect = console.nextInt();
-                }
+
+                    consoleSelect = Integer.valueOf(console.next());
+
 
                 switch (consoleSelect)
                 {
-                    case 1:{showDictionary();break;}
+                    case 1:{readPairs(typeDictionary);break;}
                     case 2:
                     {
                         System.out.print("Введите ключ:");
@@ -47,18 +56,14 @@ public class Library
 
                         if(typeDictionary==1)
                         {
-                            Pattern patternKeyOne = Pattern.compile("[A-Za-z]{4}");
-                            Matcher matcherKeyOne = patternKeyOne.matcher(tempKey);
-                            Pattern patternValueOne = Pattern.compile("[а-яёА-ЯЁ]{4}");
-                            Matcher matcherValueOne = patternValueOne.matcher(tempValue);
+                            matcherKeyOne = patternKeyOne.matcher(tempKey);
+                            matcherValueOne = patternValueOne.matcher(tempValue);
                             addPair(tempKey,tempValue,matcherKeyOne,matcherValueOne);
                         }
                         else if(typeDictionary == 2)
                         {
-                            Pattern patternKeyTwo = Pattern.compile("[0-9]{5}");
-                            Matcher matcherKeyTwo = patternKeyTwo.matcher(tempKey);
-                            Pattern patternValueTwo = Pattern.compile("[а-яёА-ЯЁ]{5}");
-                            Matcher matcherValueTwo = patternValueTwo.matcher(tempValue);
+                            matcherKeyTwo = patternKeyTwo.matcher(tempKey);
+                            matcherValueTwo = patternValueTwo.matcher(tempValue);
                             addPair(tempKey,tempValue,matcherKeyTwo,matcherValueTwo);
                         }
                         break;
@@ -84,32 +89,61 @@ public class Library
             }
 
         }
-        catch(FileNotFoundException e)
+        catch (NumberFormatException e)
         {
-            System.out.println("Файл с таким именем не найден.");
+            System.out.println("Неверный тип данных.");
         }
         catch(IOException e)
         {
             System.out.println("Ошибка чтения фаила.");
         }
-        catch(NullPointerException e)
-        {
-            System.out.println("Неправильное имя фаила.");
-        }
+
         finally {
             in.close();
             out.close();
         }
     }
 
-    public void readPairs()
+    public void readPairs(int typeDictionary)
     {
+
         try{
+            disc.getChannel().position(0);
+            in = new BufferedReader(new InputStreamReader(disc));
             while (in.ready())
             {
-                tempRead = in.readLine().split("-");
-                dictionary.put(tempRead[0],tempRead[1]);
+                    tempRead = in.readLine().split("-");
+                if(typeDictionary==1)
+                {
+                    matcherKeyOne = patternKeyOne.matcher(tempRead[0]);
+                    matcherValueOne = patternValueOne.matcher(tempRead[1]);
+                }
+                else if(typeDictionary == 2)
+                {
+                    matcherKeyTwo = patternKeyTwo.matcher(tempRead[0]);
+                    matcherValueTwo = patternValueTwo.matcher(tempRead[1]);
+                }
+
+                Matcher matcherKey;
+                Matcher matcherValue;
+                if(typeDictionary==1)
+                {
+                    matcherKey = matcherKeyOne;
+                    matcherValue = matcherValueOne;
+                }
+                else
+                {
+                    matcherKey = matcherKeyTwo;
+                    matcherValue = matcherKeyTwo;
+                }
+
+                if( matcherKey.matches() && matcherValue.matches())
+                {
+                    dictionary.put(tempRead[0], tempRead[1]);
+                    System.out.println("Ключ:" + tempRead[0] + " Значение:" + tempRead[1]);
+                }
             }
+
         }
         catch(IOException e)
         {
@@ -122,10 +156,11 @@ public class Library
         dictionary.remove(key);
         try
         {
+            out = new BufferedWriter(new FileWriter(path));
             for(String elemKey : dictionary.keySet())
             {
-                if(elemKey.equals(key))
-                out.write(elemKey+"-"+dictionary.get(elemKey));
+                out.write(elemKey+"-"+dictionary.get(elemKey)+"\n");
+                out.flush();
             }
         }
         catch(IOException e)
@@ -138,10 +173,18 @@ public class Library
     {
         try
         {
-            String result = dictionary.get(key);
-            if(!result.equals("null")) System.out.println(result);
+            disc.getChannel().position(0);
+            in = new BufferedReader(new InputStreamReader(disc));
+            while (in.ready())
+            {
+                tempRead = in.readLine().split("-");
+                dictionary.put(tempRead[0], tempRead[1]);
+                if(!tempRead[0].equals("null")&&tempRead[0].equals(key))
+                {System.out.println("Значение:"+tempRead[1]);break;}
+            }
+
         }
-        catch (NullPointerException e)
+        catch (NullPointerException | IOException e)
         {
             System.out.println("Пара отсутсвует в словаре.");
         }
@@ -156,7 +199,12 @@ public class Library
             dictionary.put(key,value);
             try
             {
-                    out.write("\n"+key+"-"+value);
+                out = new BufferedWriter(new FileWriter(path));
+                for(String elemKey : dictionary.keySet())
+                {
+                    out.write(elemKey+"-"+dictionary.get(elemKey)+"\n");
+                    out.flush();
+                }
             }
             catch(IOException e)
             {
@@ -168,12 +216,6 @@ public class Library
         else if( !matcherValue.matches() ) System.out.println("Неправильный формат значения.");
 
 
-    }
-
-    public void showDictionary()
-    {
-       System.out.print(dictionary.keySet()+"\n");
-       System.out.print(dictionary.values()+"\n");
     }
 
 }

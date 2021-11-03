@@ -18,25 +18,21 @@ public class Main
             System.out.print("С каким типом словаря вы хотите работать?\n1.Язык латинских букв\n2.Язык цифр\n3.Закрыть приложение\nВведите цифру соответствующую вашему выбору:");
             try
             {
-
-                if(user.hasNextInt())
-                {
-                    userSelect = user.nextInt();
-                }
+                    userSelect = Integer.valueOf(user.next());
 
                 switch (userSelect)
                 {
                     case 1:
                     {
                         System.out.print("Введите название файла, содержащий латинские буквы:");
-                        fileName = "src/main/resources/"+user.next();
+                        fileName = "Library/src/main/resources/"+user.next();
                         Library library1 = new Library(fileName, userSelect);
                         break;
                     }
                     case 2:
                     {
                         System.out.print("Введите название файла, содержащий цифры:");
-                        fileName = "src/main/resources/"+user.next();
+                        fileName = "Library/src/main/resources/"+user.next();
                         Library library2 = new Library(fileName, userSelect);
                         break;
                     }
@@ -52,7 +48,7 @@ public class Main
                     }
                 }
             }
-            catch (InputMismatchException e)
+            catch (NumberFormatException e)
             {
                 System.out.println("Неверный тип данных.");
             }
