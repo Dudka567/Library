@@ -3,13 +3,12 @@ import java.util.Scanner;
 
 public class ConsoleApp
 {
-    public ConsoleApp() throws IOException
+    private boolean exit = false;
+    private String fileName;
+    private int userSelect = 0;
+    private Scanner user = new Scanner(System.in);
+    public void work() throws IOException
     {
-        boolean exit = false;
-        String fileName;
-        int userSelect = 0;
-        Scanner user = new Scanner(System.in);
-
         while (!exit)
         {
 
@@ -25,6 +24,7 @@ public class ConsoleApp
                         System.out.print("Введите название файла, содержащий латинские буквы:");
                         fileName = "Library/src/main/resources/"+user.next();
                         Library library1 = new Library(fileName, userSelect);
+                        library1.work();
                         break;
                     }
                     case 2:
@@ -32,6 +32,7 @@ public class ConsoleApp
                         System.out.print("Введите название файла, содержащий цифры:");
                         fileName = "Library/src/main/resources/"+user.next();
                         Library library2 = new Library(fileName, userSelect);
+                        library2.work();
                         break;
                     }
                     case 3:

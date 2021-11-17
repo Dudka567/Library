@@ -15,6 +15,8 @@ public class Library
     private Matcher matcherValueOne;
     private Matcher matcherKeyTwo;
     private Matcher matcherValueTwo;
+    private Matcher matcherKey;
+    private Matcher matcherValue;
 
     private Scanner console = new Scanner(System.in);
     private LinkedHashMap<String,String> dictionary;
@@ -22,72 +24,76 @@ public class Library
     private BufferedWriter out;
     private FileInputStream disc;
     private String path;
-    String[] tempRead = new String[2];
-    public Library(String fileName, int typeDictionary) throws IOException {
-        dictionary = new LinkedHashMap<>();
-        path = fileName;
+    private String tempKey;
+    private String tempValue;
+    private String[] tempRead = new String[2];
+    private boolean flagWork;
+    private int consoleSelect;
+    private int typeDictionary;
+    public Library(String fileName, int typeDictionary) throws IOException
+    {
         try
         {
+            dictionary = new LinkedHashMap<>();
+            path = fileName;
+            this.typeDictionary = typeDictionary;
             disc = new FileInputStream(path);
             in = new BufferedReader(new InputStreamReader(disc));
-            boolean flagWork = true;
-            int consoleSelect = 0;
-            String tempKey;
-            String tempValue;
+            flagWork = true;
+            consoleSelect = 0;
+        }
+        catch(IOException e)
+        {
+            System.out.println("Ошибка чтения фаила.");
+        }
+    }
+
+    public void work() throws IOException {
+        try
+        {
+        while (flagWork)
+        {
+            System.out.print("Что вы хотите:\n1.Показать содерижмое соваря\n2.Добавить запись\n3.Удалить запись\n4.Пойск записи по ключу\n" +
+                    "5.Закончить работу с этим словарем\nВаш выбор:");
+
+            consoleSelect = Integer.valueOf(console.next());
 
 
-            while (flagWork)
-            {
-                System.out.print("Что вы хотите:\n1.Показать содерижмое соваря\n2.Добавить запись\n3.Удалить запись\n4.Пойск записи по ключу\n" +
-                        "5.Закончить работу с этим словарем\nВаш выбор:");
-
-                    consoleSelect = Integer.valueOf(console.next());
-
-
-                switch (consoleSelect)
-                {
-                    case 1:{readPairs(typeDictionary);break;}
-                    case 2:
-                    {
-                        System.out.print("Введите ключ:");
-                        tempKey = console.next();
-                        System.out.print("Введите значение:");
-                        tempValue = console.next();
-
-                        if(typeDictionary==1)
-                        {
-                            matcherKeyOne = patternKeyOne.matcher(tempKey);
-                            matcherValueOne = patternValueOne.matcher(tempValue);
-                            addPair(tempKey,tempValue,matcherKeyOne,matcherValueOne);
-                        }
-                        else if(typeDictionary == 2)
-                        {
-                            matcherKeyTwo = patternKeyTwo.matcher(tempKey);
-                            matcherValueTwo = patternValueTwo.matcher(tempValue);
-                            addPair(tempKey,tempValue,matcherKeyTwo,matcherValueTwo);
-                        }
-                        break;
-                    }
-                    case 3:
-                    {
-                        System.out.print("Введите ключ:");
-                        tempKey = console.next();
-                        deletePair(tempKey);
-                        break;
-                    }
-                    case 4:
-                    {
-                        System.out.print("Введите ключ:");
-                        tempKey = console.next();
-                        searchPair(tempKey);
-                        break;
-                    }
-                    case 5:{flagWork = false;break;}
-                    default:{System.out.println("Такого варианта ответа не предусмотрено.\nПожалуйста повторите попытку ввода.");break;}
+            switch (consoleSelect) {
+                case 1: {
+                    readPairs();
+                    break;
                 }
-
+                case 2: {
+                    System.out.print("Введите ключ:");
+                    tempKey = console.next();
+                    System.out.print("Введите значение:");
+                    tempValue = console.next();
+                    addPair(tempKey, tempValue);
+                    break;
+                    }
+                case 3: {
+                    System.out.print("Введите ключ:");
+                    tempKey = console.next();
+                    deletePair(tempKey);
+                    break;
+                }
+                case 4: {
+                    System.out.print("Введите ключ:");
+                    tempKey = console.next();
+                    System.out.println("Значение:"+searchPair(tempKey));
+                    break;
+                }
+                case 5: {
+                    flagWork = false;
+                    break;
+                }
+                default: {
+                    System.out.println("Такого варианта ответа не предусмотрено.\nПожалуйста повторите попытку ввода.");
+                    break;
+                }
             }
-
+        }
         }
         catch (NumberFormatException e)
         {
@@ -97,17 +103,21 @@ public class Library
         {
             System.out.println("Ошибка чтения фаила.");
         }
-
         finally {
             in.close();
             out.close();
         }
     }
 
-    public void readPairs(int typeDictionary)
+    public LinkedHashMap<String, String> getDictionary() {
+        return dictionary;
+    }
+
+    public void readPairs()
     {
 
         try{
+            disc = new FileInputStream(path);
             disc.getChannel().position(0);
             in = new BufferedReader(new InputStreamReader(disc));
             while (in.ready())
@@ -148,6 +158,7 @@ public class Library
 
 
     public void deletePair(String key) throws IOException {
+        readPairs();
         dictionary.remove(key);
         try
         {
@@ -164,7 +175,7 @@ public class Library
         }
     }
 
-    public void searchPair(String key)
+    public String searchPair(String key)
     {
         try
         {
@@ -175,7 +186,7 @@ public class Library
                 tempRead = in.readLine().split("-");
                 dictionary.put(tempRead[0], tempRead[1]);
                 if(!tempRead[0].equals("null")&&tempRead[0].equals(key))
-                {System.out.println("Значение:"+tempRead[1]);break;}
+                    return tempRead[1];
             }
 
         }
@@ -183,11 +194,23 @@ public class Library
         {
             System.out.println("Пара отсутсвует в словаре.");
         }
-
+        return "Пара отсутствует в словаре.";
     }
 
-    public void addPair(String key, String value, Matcher matcherKey, Matcher matcherValue)
+    public void addPair(String key, String value)
     {
+        readPairs();
+        if (typeDictionary == 1) {
+            matcherKeyOne = patternKeyOne.matcher(key);
+            matcherValueOne = patternValueOne.matcher(value);
+            matcherKey = matcherKeyOne;
+            matcherValue = matcherValueOne;
+        } else if (typeDictionary == 2) {
+            matcherKeyTwo = patternKeyTwo.matcher(key);
+            matcherValueTwo = patternValueTwo.matcher(value);
+            matcherKey = matcherKeyTwo;
+            matcherValue = matcherValueTwo;
+        }
 
         if( matcherKey.matches() && matcherValue.matches() )
         {
