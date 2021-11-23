@@ -33,7 +33,7 @@ public class LibraryTest {
         expected.put("buys","поку");
         expected.put("catc","лови");
         expected.put("test","лонг");
-        testLibrary.readPairs();
+        testLibrary.readPairs(false);
         Assert.assertEquals(expected, testLibrary.getDictionary());
     }
 
@@ -49,7 +49,7 @@ public class LibraryTest {
         expected.put("23473","ьипап");
         expected.put("75475","апрап");
         expected.put("25266","ашввв");
-        testLibrary.readPairs();
+        testLibrary.readPairs(false);
         Assert.assertEquals(expected, testLibrary.getDictionary());
     }
 
@@ -58,7 +58,7 @@ public class LibraryTest {
     {
         Library testLibrary = new Library("src/main/resources/map1.txt", 1);
         LinkedHashMap<String,String> expected = new LinkedHashMap<>();
-        testLibrary.readPairs();
+        testLibrary.readPairs(false);
         Assert.assertEquals(expected, testLibrary.getDictionary());
     }
 
@@ -67,7 +67,7 @@ public class LibraryTest {
     {
         Library testLibrary = new Library("src/main/resources/map.txt", 2);
         LinkedHashMap<String,String> expected = new LinkedHashMap<>();
-        testLibrary.readPairs();
+        testLibrary.readPairs(false);
         Assert.assertEquals(expected, testLibrary.getDictionary());
     }
 
@@ -83,7 +83,7 @@ public class LibraryTest {
         expected.put("23473","ьипап");
         expected.put("75475","апрап");
         expected.put("25266","ашввв");
-        testLibrary.readPairs();
+        testLibrary.readPairs(false);
         Assert.assertEquals(expected, testLibrary.getDictionary());
     }
 

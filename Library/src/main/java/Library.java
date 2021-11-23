@@ -61,7 +61,7 @@ public class Library
 
             switch (consoleSelect) {
                 case 1: {
-                    readPairs();
+                    readPairs(true);
                     break;
                 }
                 case 2: {
@@ -113,7 +113,7 @@ public class Library
         return dictionary;
     }
 
-    public void readPairs()
+    public void readPairs(boolean isVisible)
     {
 
         try{
@@ -145,7 +145,8 @@ public class Library
                 if( matcherKey.matches() && matcherValue.matches())
                 {
                     dictionary.put(tempRead[0], tempRead[1]);
-                    System.out.println("Ключ:" + tempRead[0] + " Значение:" + tempRead[1]);
+                    if(isVisible)
+                    {System.out.println("Ключ:" + tempRead[0] + " Значение:" + tempRead[1]);}
                 }
             }
 
@@ -158,7 +159,7 @@ public class Library
 
 
     public void deletePair(String key) throws IOException {
-        readPairs();
+        readPairs(false);
         dictionary.remove(key);
         try
         {
@@ -199,7 +200,7 @@ public class Library
 
     public void addPair(String key, String value)
     {
-        readPairs();
+        readPairs(false);
         if (typeDictionary == 1) {
             matcherKeyOne = patternKeyOne.matcher(key);
             matcherValueOne = patternValueOne.matcher(value);
