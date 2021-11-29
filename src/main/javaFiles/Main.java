@@ -1,3 +1,4 @@
+package res.main.javaFiles; 
 import java.io.IOException;
 
 public class Main
