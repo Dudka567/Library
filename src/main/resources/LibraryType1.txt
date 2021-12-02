@@ -18,4 +18,5 @@ buil-стро
 buys-поку
 catc-лови
 test-лонг
-inpu-инпу
+sear-сиар
+cars-карс

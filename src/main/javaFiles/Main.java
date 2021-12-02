@@ -1,11 +1,13 @@
-package res.main.javaFiles; 
+package src.main.javaFiles; 
 import java.io.IOException;
 
 public class Main
 {
     public static void main(String[] args) throws IOException
     {
-        ConsoleApp consoleApp = new ConsoleApp();
+        FileManager manager = new FileManager();
+        LibraryFactory factory = new LibraryFactory(manager);
+        ConsoleApp consoleApp = new ConsoleApp(manager, factory);
         consoleApp.work();
     }
 }

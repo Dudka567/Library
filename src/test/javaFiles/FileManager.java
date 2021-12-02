@@ -1,4 +1,4 @@
-package src.main.javaFiles; 
+package src.test.javaFiles; 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
