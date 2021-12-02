@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 public class LibraryTest {
     public static final String TYPE_LIBRARY_ONE = "1";
     public static final String TYPE_LIBRARY_THIRD = "3";
-    public static final String PATH_TESTLIBRARY = "src\\main\\resources\\LibraryType3.txt";
+    public static final String PATH_TESTLIBRARY = "src\\test\\resources\\LibraryType3.txt";
     public static final String CORRECT_KEY = "cars";
     public static final String CORRECT_VALUE = "карс";
     public static final String INCORRECT_KEY = "carsz";
