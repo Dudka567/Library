@@ -1,4 +1,5 @@
 package src.main.javaFiles; 
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -6,7 +7,7 @@ import java.util.LinkedHashMap;
 
 public class FileManager {
     public final static String NAME_FILE = "LibraryType";
-    public final static String SOURCE_DIRECTORY = "C://Library/src/main/resources";
+    public final static String SOURCE_DIRECTORY = "/Library/src/main/resources";
     public final static String NAME_FILE_DICTIONARIES = "LibraryCollection.txt";
     public final static String CHAR_OF_DIRECTORY = "/";
     public final static String EXPANSION = ".txt";
