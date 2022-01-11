@@ -3,14 +3,23 @@ package src.main.javaFiles;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 
 public class FileManager {
     public final static String NAME_FILE = "LibraryType";
-    public final static String SOURCE_DIRECTORY = "/Library/src/main/resources";
+    public final static String SOURCE_DIRECTORY = "../resources";
+    public final static String SOURCE_DIRECTORY_TEST = "../resources";
     public final static String NAME_FILE_DICTIONARIES = "LibraryCollection.txt";
     public final static String CHAR_OF_DIRECTORY = "/";
     public final static String EXPANSION = ".txt";
+    protected String sourceDirectory;
+    public FileManager(boolean forTest)
+    {
+        if(forTest) sourceDirectory = SOURCE_DIRECTORY_TEST;
+        else sourceDirectory = SOURCE_DIRECTORY;
+    }	
+
 
     public boolean checkFile(File file, String expectedNameFile) throws IOException
     {
@@ -44,18 +53,38 @@ public class FileManager {
         return file;
     }
 
-    public void createDictionaries(LinkedHashMap<String,Library> dictionaries) throws IOException
+    public LinkedList<String[]> searchDictionaries() throws IOException
     {
         FileInputStream descriptorPosition = new FileInputStream(SOURCE_DIRECTORY+CHAR_OF_DIRECTORY+NAME_FILE_DICTIONARIES);
         descriptorPosition.getChannel().position(0);
         BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
         String[] tempRead = new String[4];
+        LinkedList<String[]> listDictionaries = new LinkedList<>();
 
         while (readerStream.ready())
         {
             tempRead = readerStream.readLine().split(Library.REGEX_CHAR);
-            dictionaries.put(tempRead[3],new Library(tempRead[3],tempRead[2],tempRead[0],tempRead[1],this));
+            listDictionaries.add(tempRead);
         }
+        return listDictionaries;
+    }
+
+    public String readFileAndSearchKey(Library library, String searchKey) throws IOException
+    {
+        FileInputStream descriptorPosition = new FileInputStream(library.fileDir);
+        descriptorPosition.getChannel().position(0);
+        BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
+        String[] tempRead = new String[2];
+
+        while (readerStream.ready())
+        {
+            tempRead = readerStream.readLine().split(Library.SPLIT_CHAR);
+            if (tempRead[0].equals(searchKey))
+            {
+                return ConsoleApp.VALUE+tempRead[1];
+            }
+        }
+        return Library.PAIR_MISSING;
     }
 
     public void readFile(Library library) throws IOException
@@ -89,4 +118,3 @@ public class FileManager {
     }
 
 }
-

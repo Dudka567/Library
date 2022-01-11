@@ -1,5 +1,6 @@
 package src.test.javaFiles;  
 
+import src.main.javaFiles.*;
 import org.junit.*;
 
 import java.io.IOException;
@@ -8,17 +9,30 @@ import java.util.LinkedHashMap;
 public class LibraryTest {
     public static final String TYPE_LIBRARY_ONE = "1";
     public static final String TYPE_LIBRARY_THIRD = "3";
-    public static final String PATH_TESTLIBRARY = "src\\test\\resources\\LibraryType3.txt";
+    public static final String PATH_TESTLIBRARY = "..\\resources\\LibraryType3.txt";
     public static final String CORRECT_KEY = "cars";
     public static final String CORRECT_VALUE = "карс";
     public static final String INCORRECT_KEY = "carsz";
     public static final String INCORRECT_VALUE = "с";
     public static final String SEARCH_CORRECT_VALUE = "Value:карс";
 
+ public static void main(String[] args) throws IOException
+    {
+	LibraryTest tests = new LibraryTest();
+        tests.testSearchLibrary_TypeOne_InDirectory();
+	tests.testCreateLibrary_TypeThird_InDirectory();
+	tests.testReadPairs_IntoLibraryTypeOne();
+	tests.testAddPair_InLibraryTypeOne();
+	tests.testValidation_ForAddPairTypeOne();
+	tests.testDeletePair_InLibraryTypeOne();
+	tests.testSearchPair_InLibraryTypeOne();
+	System.out.println("7 / 7 tests passed successfully");
+    }
+	
     @Test
     public void testSearchLibrary_TypeOne_InDirectory() throws IOException
     {
-        FileManager manager = new FileManager();
+        FileManager manager = new FileManager(true);
         LibraryFactory libraryFactory = new LibraryFactory(manager);
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_THIRD).setFileDir(manager.searchLibrary(TYPE_LIBRARY_THIRD));
 
@@ -29,7 +43,7 @@ public class LibraryTest {
     @Test
     public void testCreateLibrary_TypeThird_InDirectory() throws IOException
     {
-        FileManager manager = new FileManager();
+        FileManager manager = new FileManager(true);
         manager.deleteFile(PATH_TESTLIBRARY);
         LibraryFactory libraryFactory = new LibraryFactory(manager);
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_THIRD).setFileDir(manager.searchLibrary(TYPE_LIBRARY_THIRD));
@@ -42,7 +56,7 @@ public class LibraryTest {
     @Test
     public void testReadPairs_IntoLibraryTypeOne() throws IOException
     {
-        FileManager manager = new FileManager();
+        FileManager manager = new FileManager(true);
         LibraryFactory libraryFactory = new LibraryFactory(manager);
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).setFileDir(manager.searchLibrary(TYPE_LIBRARY_ONE));
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).readPairs();
@@ -55,7 +69,7 @@ public class LibraryTest {
     @Test
     public void testAddPair_InLibraryTypeOne() throws IOException
     {
-        FileManager manager = new FileManager();
+        FileManager manager = new FileManager(true);
         LibraryFactory libraryFactory = new LibraryFactory(manager);
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).setFileDir(manager.searchLibrary(TYPE_LIBRARY_ONE));
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY,CORRECT_VALUE);
@@ -68,7 +82,7 @@ public class LibraryTest {
     @Test
     public void testValidation_ForAddPairTypeOne() throws IOException
     {
-        FileManager manager = new FileManager();
+        FileManager manager = new FileManager(true);
         LibraryFactory libraryFactory = new LibraryFactory(manager);
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).setFileDir(manager.searchLibrary(TYPE_LIBRARY_ONE));
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).addPair(INCORRECT_KEY,INCORRECT_VALUE);
@@ -81,7 +95,7 @@ public class LibraryTest {
     @Test
     public void testDeletePair_InLibraryTypeOne() throws IOException
     {
-        FileManager manager = new FileManager();
+        FileManager manager = new FileManager(true);
         LibraryFactory libraryFactory = new LibraryFactory(manager);
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).setFileDir(manager.searchLibrary(TYPE_LIBRARY_ONE));
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY,CORRECT_VALUE);
@@ -94,7 +108,7 @@ public class LibraryTest {
     @Test
     public void testSearchPair_InLibraryTypeOne() throws IOException
     {
-        FileManager manager = new FileManager();
+        FileManager manager = new FileManager(true);
         LibraryFactory libraryFactory = new LibraryFactory(manager);
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).setFileDir(manager.searchLibrary(TYPE_LIBRARY_ONE));
         libraryFactory.getDictionaries().get(TYPE_LIBRARY_ONE).deletePair(CORRECT_KEY);

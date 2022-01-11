@@ -14,14 +14,15 @@ public class Library
     public static final String INCORRECT_KEY_FORMAT = "Incorrect key format.";
     public static final String INCORRECT_VALUE_FORMAT = "Incorrect value format.";
     public static final String PAIR_ADDED = "The pair has been added to the dictionary.";
+    public static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
 
     protected String nameLibrary;
     protected String typeLibrary;
-    protected File fileDir;
+    public File fileDir;
     protected LinkedHashMap<String,String> dictionary;
     protected Pattern patternKey;
     protected Pattern patternValue;
-    protected FileManager manager;
+    public FileManager manager;
 
     public Library(String argTypeLibrary,String argNameLibrary, String key, String value, FileManager manager)
     {
@@ -47,17 +48,15 @@ public class Library
         manager.readFile(this);
     }
 
-    public void deletePair(String key) throws IOException {
+    public String deletePair(String key) throws IOException {
         manager.readFile(this);
         dictionary.remove(key);
         manager.writeFile(this);
+        return PAIR_DELETED;
     }
 
     public String searchPair(String key) throws IOException {
-        manager.readFile(this);
-        if(!dictionary.get(key).equals(ZERO))
-            return ConsoleApp.VALUE+dictionary.get(key);
-        return PAIR_MISSING;
+        return manager.readFileAndSearchKey(this,key);
     }
 
     public String addPair(String key, String value) throws IOException

@@ -1,6 +1,7 @@
-set DIR_PROJECT=\Library\src\main\classes
+set DIR_PROJECT=src/main/classes
 del /s %DIR_BIN%\*.class >NUL
-cd \Library\src\main\javaFiles
-javac -d \Library\src\main\classes *.java
-cd \Library\src\main\classes
-java -classpath \Library\src\main\classes src.main.javaFiles.Main
+cd src/main/javaFiles
+javac -d ../classes *.java
+cd..
+cd classes
+java src.main.javaFiles.Main

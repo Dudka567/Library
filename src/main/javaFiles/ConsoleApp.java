@@ -18,18 +18,8 @@ public class ConsoleApp
     public static final String ERROR_TYPE_DATA = "Invalid data type.";
     public static final String ERROR_NAME_FILE = "Wrong file name.";
     public static final String ERROR_FIND_PAIRS = "The pair is missing from the dictionary.";
-    public static final String FIRST_OPERATION = ".Show the contents of the dictionary\n";
-    public static final String SECOND_OPERATION = ".Add an entry\n";
-    public static final String THIRD_OPERATION = ".Delete an entry\n";
-    public static final String FOURTH_OPERATION = ".Search records by key\n";
-    public static final String FIFTH_OPERATION = ".Finish working with this dictionary\n";
     public static final String INPUT_KEY = "Enter the key:";
     public static final String INPUT_VALUE = "Enter a value:";
-    public static final int CHOOSE_OPERATION_ONE = 1;
-    public static final int CHOOSE_OPERATION_TWO = 2;
-    public static final int CHOOSE_OPERATION_THREE = 3;
-    public static final int CHOOSE_OPERATION_FOUR = 4;
-    public static final int CHOOSE_OPERATION_FIFE = 5;
     private boolean exitMainMenu = false;
     private boolean exitLibraryMenu = false;
     private String userSelect;
@@ -93,14 +83,15 @@ public class ConsoleApp
 
         public void workWithLibrary(Library library) throws IOException {
             while (!exitLibraryMenu) {
-
-                System.out.print(ASK_ABOUT_OPERATION_DICTIONARY+CHOOSE_OPERATION_ONE+FIRST_OPERATION+CHOOSE_OPERATION_TWO+
-                        SECOND_OPERATION+CHOOSE_OPERATION_THREE+THIRD_OPERATION+CHOOSE_OPERATION_FOUR+FOURTH_OPERATION
-                        +CHOOSE_OPERATION_FIFE+FIFTH_OPERATION+CHOOSE_USER);
+                System.out.print(ASK_ABOUT_OPERATION_DICTIONARY+TypesOperations.CHOOSE_OPERATION_ONE.getALLINFO()+TypesOperations.CHOOSE_OPERATION_TWO.getALLINFO()+
+                        TypesOperations.CHOOSE_OPERATION_THREE.getALLINFO()+TypesOperations.CHOOSE_OPERATION_FOUR.getALLINFO()
+                        +TypesOperations.CHOOSE_OPERATION_FIFE.getALLINFO()+CHOOSE_USER);
                 try {
-                    userSelectForDictionary = Integer.parseInt(user.next());
 
-                    switch (userSelectForDictionary) {
+                    userSelectForDictionary = Integer.parseInt(user.next());
+                    TypesOperations type = TypesOperations.fromValue(String.valueOf(userSelectForDictionary));
+
+                    switch (type) {
                         case CHOOSE_OPERATION_ONE:
                         {
                             library.readPairs();
@@ -116,13 +107,13 @@ public class ConsoleApp
                             String tempKey = user.next();
                             System.out.print(INPUT_VALUE);
                             String tempValue = user.next();
-                            library.addPair(tempKey, tempValue);break;
+                            System.out.println(library.addPair(tempKey, tempValue));break;
                         }
                         case CHOOSE_OPERATION_THREE:
                         {
                             System.out.print(INPUT_KEY);
                             String tempKey = user.next();
-                            library.deletePair(tempKey);break;
+                            System.out.println(library.deletePair(tempKey));break;
                         }
                         case CHOOSE_OPERATION_FOUR:
                         {
