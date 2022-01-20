@@ -5,3 +5,4 @@ javac -d ../classes *.java
 cd..
 cd classes
 java src.main.javaFiles.Main
+pause

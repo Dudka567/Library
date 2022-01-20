@@ -1,4 +1,4 @@
-package src.main.javaFiles;
+package src.main.javaFiles; 
 
 public enum TypesOperations {
     CHOOSE_OPERATION_ONE("1",".Show the contents of the dictionary\n"),

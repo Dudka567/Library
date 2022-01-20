@@ -1,9 +1,10 @@
 package src.main.javaFiles; 
+
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
-public class ConsoleApp
-{
+public class ConsoleApp implements ConsoleAppFunctionally {
     public static final String ASK_ABOUT_TYPE_DICTIONARY = "What type of dictionary do you want to work with?";
     public static final String ASK_ABOUT_OPERATION_DICTIONARY = "What kind of dictionary operation do you want to perform?\n";
     public static final String CHAR_FOR_NEXT_LINE = "\n";
@@ -20,55 +21,46 @@ public class ConsoleApp
     public static final String ERROR_FIND_PAIRS = "The pair is missing from the dictionary.";
     public static final String INPUT_KEY = "Enter the key:";
     public static final String INPUT_VALUE = "Enter a value:";
+
     private boolean exitMainMenu = false;
     private boolean exitLibraryMenu = false;
     private String userSelect;
     private int userSelectForDictionary = 0;
-    private FileManager manager;
-    private LibraryFactory libraryFactory;
     private Scanner user = new Scanner(System.in);
 
-    public ConsoleApp(FileManager manager, LibraryFactory libraryFactory)
-    {
-     this.manager = manager;
-     this.libraryFactory = libraryFactory;
+    private LinkedHashMap<String, Library> libraryFactory;
+
+
+    public ConsoleApp(LibraryFactoryFunctionally libraryFactory) throws IOException {
+        this.libraryFactory = libraryFactory.createLibraries();
     }
 
-    public void work() throws IOException
-    {
-        while (!exitMainMenu)
-        {
+    @Override
+    public void work() throws IOException {
+        while (!exitMainMenu) {
 
             System.out.print(ASK_ABOUT_TYPE_DICTIONARY + CHAR_FOR_NEXT_LINE);
-            for(String variant : libraryFactory.getDictionaries().keySet())
-            {
-                System.out.println(variant+CHAR_POINT+libraryFactory.getDictionaries().get(variant).getNameLibrary());
+            for (String variant : libraryFactory.keySet()) {
+                System.out.println(variant + CHAR_POINT + libraryFactory.get(variant).getNameLibrary());
             }
-            System.out.print(EXIT+CHAR_FOR_NEXT_LINE+CHOOSE_USER);
+            System.out.print(EXIT + CHAR_FOR_NEXT_LINE + CHOOSE_USER);
             try {
                 userSelect = user.next();
 
-                for (String compareLine : libraryFactory.getDictionaries().keySet())
-                {
-                     if(userSelect.equals(EXIT_LINE))
-                    {
+                for (String compareLine : libraryFactory.keySet()) {
+                    if (userSelect.equals(EXIT_LINE)) {
                         exitMainMenu = true;
                         break;
+                    } else if (libraryFactory.keySet().contains(compareLine)) {
+                        for (String Line : libraryFactory.keySet()) {
+                            if (userSelect.equals(Line)) {
+                                workWithLibrary(libraryFactory.get(Line));
+                                break;
+                            }
+                        }
+                        System.out.println(NOT_SEARCH);
+                        break;
                     }
-                     else if(libraryFactory.getDictionaries().keySet().contains(compareLine))
-                     {
-                         for (String Line : libraryFactory.getDictionaries().keySet())
-                         {
-                             if (userSelect.equals(Line))
-                             {
-                                 libraryFactory.getDictionaries().get(Line).setFileDir(manager.searchLibrary(Line));
-                                 workWithLibrary(libraryFactory.getDictionaries().get(Line));
-                                 break;
-                             }
-                         }
-                         System.out.println(NOT_SEARCH);
-                         break;
-                     }
 
                 }
 
@@ -81,72 +73,67 @@ public class ConsoleApp
         }
     }
 
-        public void workWithLibrary(Library library) throws IOException {
-            while (!exitLibraryMenu) {
-                System.out.print(ASK_ABOUT_OPERATION_DICTIONARY+TypesOperations.CHOOSE_OPERATION_ONE.getALLINFO()+TypesOperations.CHOOSE_OPERATION_TWO.getALLINFO()+
-                        TypesOperations.CHOOSE_OPERATION_THREE.getALLINFO()+TypesOperations.CHOOSE_OPERATION_FOUR.getALLINFO()
-                        +TypesOperations.CHOOSE_OPERATION_FIFE.getALLINFO()+CHOOSE_USER);
-                try {
+    @Override
+    public void workWithLibrary(Library library) throws IOException {
+        while (!exitLibraryMenu) {
+            System.out.print(ASK_ABOUT_OPERATION_DICTIONARY);
+            for (TypesOperations line : TypesOperations.values()) {
+                System.out.print(line.getALLINFO());
+            }
+            System.out.print(CHOOSE_USER);
+            try {
+                userSelectForDictionary = Integer.parseInt(user.next());
+                TypesOperations type = TypesOperations.fromValue(String.valueOf(userSelectForDictionary));
 
-                    userSelectForDictionary = Integer.parseInt(user.next());
-                    TypesOperations type = TypesOperations.fromValue(String.valueOf(userSelectForDictionary));
-
-                    switch (type) {
-                        case CHOOSE_OPERATION_ONE:
-                        {
-                            library.readPairs();
-                            for(String lineKey : library.getDictionary().keySet())
-                            {
-                                System.out.println(KEY+lineKey+CHAR_SPACE+VALUE+library.getDictionary().get(lineKey));
-                            }
-                            break;
+                switch (type) {
+                    case CHOOSE_OPERATION_ONE: {
+                        library.readPairs();
+                        for (String lineKey : library.getLocalDictionary().keySet()) {
+                            System.out.println(KEY + lineKey + CHAR_SPACE + VALUE + library.getLocalDictionary().get(lineKey));
                         }
-                        case CHOOSE_OPERATION_TWO:
-                        {
-                            System.out.print(INPUT_KEY);
-                            String tempKey = user.next();
-                            System.out.print(INPUT_VALUE);
-                            String tempValue = user.next();
-                            System.out.println(library.addPair(tempKey, tempValue));break;
-                        }
-                        case CHOOSE_OPERATION_THREE:
-                        {
-                            System.out.print(INPUT_KEY);
-                            String tempKey = user.next();
-                            System.out.println(library.deletePair(tempKey));break;
-                        }
-                        case CHOOSE_OPERATION_FOUR:
-                        {
-                            System.out.print(INPUT_KEY);
-                            String tempKey = user.next();
-                            System.out.println(library.searchPair(tempKey));break;
-                        }
-                        case CHOOSE_OPERATION_FIFE:
-                        {
-                            exitLibraryMenu = true;
-                            break;
-                        }
-                        default:
-                        {
-                            System.out.println(NOT_SEARCH);
-                            break;
-                        }
+                        break;
+                    }
+                    case CHOOSE_OPERATION_TWO: {
+                        System.out.print(INPUT_KEY);
+                        String tempKey = user.next();
+                        System.out.print(INPUT_VALUE);
+                        String tempValue = user.next();
+                        System.out.println(library.addPair(tempKey, tempValue));
+                        break;
+                    }
+                    case CHOOSE_OPERATION_THREE: {
+                        System.out.print(INPUT_KEY);
+                        String tempKey = user.next();
+                        System.out.println(library.deletePair(tempKey));
+                        break;
+                    }
+                    case CHOOSE_OPERATION_FOUR: {
+                        System.out.print(INPUT_KEY);
+                        String tempKey = user.next();
+                        System.out.println(library.searchPair(tempKey));
+                        break;
+                    }
+                    case CHOOSE_OPERATION_FIFE: {
+                        exitLibraryMenu = true;
+                        break;
+                    }
+                    default: {
+                        System.out.println(NOT_SEARCH);
+                        break;
                     }
                 }
-                catch (NumberFormatException e)
-                {
-                    System.out.println(ERROR_TYPE_DATA);
-                } catch (NullPointerException e)
-                {
-                    System.out.println(ERROR_FIND_PAIRS);
-                }
-                catch(IOException e)
-                {
-                    System.out.println(ERROR_NAME_FILE);
-                }
-
+            } catch (NumberFormatException e) {
+                System.out.println(ERROR_TYPE_DATA);
+            } catch (NullPointerException e) {
+                System.out.println(ERROR_FIND_PAIRS);
+            } catch (IOException e) {
+                System.out.println(ERROR_NAME_FILE);
             }
-            exitLibraryMenu = false;
+
         }
+        exitLibraryMenu = false;
+
+    }
+
 
 }
