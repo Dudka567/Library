@@ -12,16 +12,15 @@ public class ConfigManager {
     public static final String CONFIG_DIR = "../resources/LibraryCollection.txt";
     public static final String REGEX_CHAR = ",";
 
-    public LinkedList<DataDictionary> readConfig() throws IOException {
+    public LinkedList<DictionaryConfig> readConfig() throws IOException {
         FileInputStream descriptorPosition = new FileInputStream(CONFIG_DIR);
         descriptorPosition.getChannel().position(0);
         BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
-        String[] tempRead = new String[4];
-        LinkedList<DataDictionary> listDictionaries = new LinkedList<>();
+        LinkedList<DictionaryConfig> listDictionaries = new LinkedList<>();
 
         while (readerStream.ready()) {
-            tempRead = readerStream.readLine().split(REGEX_CHAR);
-            listDictionaries.add(new DataDictionary(tempRead[0], tempRead[1], tempRead[2], tempRead[3]));
+            String configLine = readerStream.readLine();
+            listDictionaries.add(new DictionaryConfig(configLine));
         }
         return listDictionaries;
     }
@@ -48,17 +47,18 @@ public class ConfigManager {
         return file.getName().equals(NAME_FILE + expectedNameFile + EXPANSION);
     }
 
-    class DataDictionary {
+    class DictionaryConfig {
         String patternKey;
         String patternValue;
         String nameDictionary;
         String typeDictionary;
 
-        public DataDictionary(String patternKey, String patternValue, String nameDictionary, String typeDictionary) {
-            this.patternKey = patternKey;
-            this.patternValue = patternValue;
-            this.nameDictionary = nameDictionary;
-            this.typeDictionary = typeDictionary;
+        public DictionaryConfig(String configLine) {
+            String[] tempRead = configLine.split(REGEX_CHAR);
+            this.patternKey = tempRead[0];
+            this.patternValue = tempRead[1];
+            this.nameDictionary = tempRead[2];
+            this.typeDictionary = tempRead[3];
         }
     }
 }
