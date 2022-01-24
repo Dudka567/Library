@@ -48,10 +48,27 @@ public class ConfigManager {
     }
 
     class DictionaryConfig {
-        String patternKey;
-        String patternValue;
-        String nameDictionary;
-        String typeDictionary;
+
+        public String getPatternKey() {
+            return patternKey;
+        }
+
+        public String getPatternValue() {
+            return patternValue;
+        }
+
+        public String getNameDictionary() {
+            return nameDictionary;
+        }
+
+        public String getTypeDictionary() {
+            return typeDictionary;
+        }
+
+        private String patternKey;
+        private String patternValue;
+        private String nameDictionary;
+        private String typeDictionary;
 
         public DictionaryConfig(String configLine) {
             String[] tempRead = configLine.split(REGEX_CHAR);
