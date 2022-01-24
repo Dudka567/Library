@@ -15,8 +15,8 @@ public class LibraryFactory {
 
     public Map<String, LibraryFunctionally> createLibraries() throws IOException {
         LinkedHashMap<String, LibraryFunctionally> listLibraries = new LinkedHashMap<>();
-        for (String[] arg : configManager.readConfig()) {
-            listLibraries.put(arg[3], new Library(arg[0], arg[1], arg[2], arg[3], new FileManager(configManager.searchLibrary(arg[3]))));
+        for (ConfigManager.DataDictionary arg : configManager.readConfig()) {
+            listLibraries.put(arg.typeDictionary, new Library(arg.patternKey, arg.patternValue, arg.nameDictionary, arg.typeDictionary, new FileManager(configManager.searchLibrary(arg.typeDictionary))));
         }
         return (LinkedHashMap<String, LibraryFunctionally>) listLibraries.clone();
     }

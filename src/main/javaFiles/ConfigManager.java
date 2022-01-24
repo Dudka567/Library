@@ -12,22 +12,22 @@ public class ConfigManager {
     public static final String CONFIG_DIR = "../resources/LibraryCollection.txt";
     public static final String REGEX_CHAR = ",";
 
-    public LinkedList<String[]> readConfig() throws IOException {
+    public LinkedList<DataDictionary> readConfig() throws IOException {
         FileInputStream descriptorPosition = new FileInputStream(CONFIG_DIR);
         descriptorPosition.getChannel().position(0);
         BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
         String[] tempRead = new String[4];
-        LinkedList<String[]> listDictionaries = new LinkedList<>();
+        LinkedList<DataDictionary> listDictionaries = new LinkedList<>();
 
         while (readerStream.ready()) {
             tempRead = readerStream.readLine().split(REGEX_CHAR);
-            listDictionaries.add(tempRead);
+            listDictionaries.add(new DataDictionary(tempRead[0], tempRead[1], tempRead[2], tempRead[3]));
         }
         return listDictionaries;
     }
 
     public File searchLibrary(String expectedNameFile) throws IOException {
-	File dir = new File(SOURCE_DIRECTORY);
+        File dir = new File(SOURCE_DIRECTORY);
         ArrayList<File> listFilesInDirectory = new ArrayList<>();
         for (File file : dir.listFiles()) {
             if (file.isFile())
@@ -46,5 +46,19 @@ public class ConfigManager {
 
     public boolean isCheckedFile(File file, String expectedNameFile) throws IOException {
         return file.getName().equals(NAME_FILE + expectedNameFile + EXPANSION);
+    }
+
+    class DataDictionary {
+        String patternKey;
+        String patternValue;
+        String nameDictionary;
+        String typeDictionary;
+
+        public DataDictionary(String patternKey, String patternValue, String nameDictionary, String typeDictionary) {
+            this.patternKey = patternKey;
+            this.patternValue = patternValue;
+            this.nameDictionary = nameDictionary;
+            this.typeDictionary = typeDictionary;
+        }
     }
 }
