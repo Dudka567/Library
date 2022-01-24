@@ -2,9 +2,10 @@ package src.main.javaFiles;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-public class ConsoleApp implements ConsoleAppFunctionally {
+public class ConsoleApp {
     public static final String ASK_ABOUT_TYPE_DICTIONARY = "What type of dictionary do you want to work with?";
     public static final String ASK_ABOUT_OPERATION_DICTIONARY = "What kind of dictionary operation do you want to perform?\n";
     public static final String CHAR_FOR_NEXT_LINE = "\n";
@@ -28,14 +29,13 @@ public class ConsoleApp implements ConsoleAppFunctionally {
     private int userSelectForDictionary = 0;
     private Scanner user = new Scanner(System.in);
 
-    private LinkedHashMap<String, Library> libraryFactory;
+    private Map<String, LibraryFunctionally> libraryFactory;
 
 
-    public ConsoleApp(LibraryFactoryFunctionally libraryFactory) throws IOException {
+    public ConsoleApp(LibraryFactory libraryFactory) throws IOException {
         this.libraryFactory = libraryFactory.createLibraries();
     }
 
-    @Override
     public void work() throws IOException {
         while (!exitMainMenu) {
 
@@ -73,8 +73,7 @@ public class ConsoleApp implements ConsoleAppFunctionally {
         }
     }
 
-    @Override
-    public void workWithLibrary(Library library) throws IOException {
+    public void workWithLibrary(LibraryFunctionally library) throws IOException {
         while (!exitLibraryMenu) {
             System.out.print(ASK_ABOUT_OPERATION_DICTIONARY);
             for (TypesOperations line : TypesOperations.values()) {

@@ -11,4 +11,10 @@ public interface LibraryFunctionally {
     String searchPair(String key) throws IOException;
 
     String addPair(String key, String value) throws IOException;
+
+     LinkedHashMap<String, String> getLocalDictionary();
+
+     String getNameLibrary();
+
+     String getTypeLibrary();
 }

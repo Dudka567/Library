@@ -14,7 +14,7 @@ public class Library implements LibraryFunctionally {
     public static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
     public static final String PAIR_SEARCHED = "Value: ";
 
-    private FileManagerFunctionally mainManager;
+    private FileManager mainManager;
 
     private LinkedHashMap<String, String> localDictionary;
 
@@ -25,7 +25,7 @@ public class Library implements LibraryFunctionally {
     private String nameLibrary;
     private String typeLibrary;
 
-    public Library(String patternKey, String patternValue, String nameLibrary, String typeLibrary, FileManagerFunctionally mainManager) throws IOException {
+    public Library(String patternKey, String patternValue, String nameLibrary, String typeLibrary, FileManager mainManager) throws IOException {
         this.patternKey = Pattern.compile(patternKey);
         this.patternValue = Pattern.compile(patternValue);
         this.nameLibrary = nameLibrary;

@@ -6,6 +6,7 @@ import org.junit.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class LibraryTest {
     public static final String TYPE_LIBRARY_ONE = "1";
@@ -32,7 +33,7 @@ public class LibraryTest {
     @Test
     public void testSearchLibrary_TypeOne_InDirectory() throws IOException
     {
-        ConfigManagerFunctionally configManager = new ConfigManager();
+        ConfigManager configManager = new ConfigManager();
 		
         File actrual = configManager.searchLibrary(TYPE_LIBRARY_THIRD);
 
@@ -43,11 +44,11 @@ public class LibraryTest {
     @Test
     public void testCreateLibrary_TypeThird_InDirectory() throws IOException
     {
-	ConfigManagerFunctionally configManager = new ConfigManager();
+	    ConfigManager configManager = new ConfigManager();
         FileManager fileManager = new FileManager(new File(PATH_TESTLIBRARY));
         fileManager.deleteFile(PATH_TESTLIBRARY);
 
-        LibraryFactory libraryFactory = new LibraryFactory();
+        LibraryFactory libraryFactory = new LibraryFactory(configManager);
         libraryFactory.createLibraries();
         File actrual = configManager.searchLibrary(TYPE_LIBRARY_THIRD);
 
@@ -59,8 +60,8 @@ public class LibraryTest {
     @Test
     public void testAddPair_InLibraryTypeOne() throws IOException
     {
-        LibraryFactory libraryFactory = new LibraryFactory();
-        LinkedHashMap<String, Library> libraries = libraryFactory.createLibraries();
+        LibraryFactory libraryFactory = new LibraryFactory(new ConfigManager());
+        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY,CORRECT_VALUE);
 
         LinkedHashMap<String,String> expected = new LinkedHashMap<>();
@@ -71,8 +72,8 @@ public class LibraryTest {
     @Test
     public void testValidation_ForAddPairTypeOne() throws IOException
     {
-        LibraryFactory libraryFactory = new LibraryFactory();
-        LinkedHashMap<String, Library> libraries = libraryFactory.createLibraries();
+        LibraryFactory libraryFactory = new LibraryFactory(new ConfigManager());
+        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).addPair(INCORRECT_KEY,INCORRECT_VALUE);
 
         String expected = null;
@@ -83,8 +84,8 @@ public class LibraryTest {
     @Test
     public void testDeletePair_InLibraryTypeOne() throws IOException
     {
-        LibraryFactory libraryFactory = new LibraryFactory();
-        LinkedHashMap<String, Library> libraries = libraryFactory.createLibraries();
+        LibraryFactory libraryFactory = new LibraryFactory(new ConfigManager());
+        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY,CORRECT_VALUE);
         libraries.get(TYPE_LIBRARY_ONE).deletePair(CORRECT_KEY);
 
@@ -95,8 +96,8 @@ public class LibraryTest {
     @Test
     public void testSearchPair_InLibraryTypeOne() throws IOException
     {
-        LibraryFactory libraryFactory = new LibraryFactory();
-        LinkedHashMap<String, Library> libraries = libraryFactory.createLibraries();
+        LibraryFactory libraryFactory = new LibraryFactory(new ConfigManager());
+        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).deletePair(CORRECT_KEY);
         libraries.get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY,CORRECT_VALUE);
 

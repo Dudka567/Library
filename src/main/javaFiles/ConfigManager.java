@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class ConfigManager implements ConfigManagerFunctionally {
+public class ConfigManager {
     public final static String CHAR_OF_DIRECTORY = "/";
     public final static String EXPANSION = ".txt";
     public final static String SOURCE_DIRECTORY = "../resources";
@@ -12,7 +12,6 @@ public class ConfigManager implements ConfigManagerFunctionally {
     public static final String CONFIG_DIR = "../resources/LibraryCollection.txt";
     public static final String REGEX_CHAR = ",";
 
-    @Override
     public LinkedList<String[]> readConfig() throws IOException {
         FileInputStream descriptorPosition = new FileInputStream(CONFIG_DIR);
         descriptorPosition.getChannel().position(0);
@@ -27,7 +26,6 @@ public class ConfigManager implements ConfigManagerFunctionally {
         return listDictionaries;
     }
 
-    @Override
     public File searchLibrary(String expectedNameFile) throws IOException {
 	File dir = new File(SOURCE_DIRECTORY);
         ArrayList<File> listFilesInDirectory = new ArrayList<>();
@@ -46,7 +44,6 @@ public class ConfigManager implements ConfigManagerFunctionally {
         return file;
     }
 
-    @Override
     public boolean isCheckedFile(File file, String expectedNameFile) throws IOException {
         return file.getName().equals(NAME_FILE + expectedNameFile + EXPANSION);
     }

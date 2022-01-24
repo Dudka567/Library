@@ -2,7 +2,7 @@ package src.main.javaFiles;
 
 import java.io.*;
 
-public class FileManager implements FileManagerFunctionally {
+public class FileManager {
     public final static String SPLIT_CHAR = "-";
 
     private File dirLibrary;
@@ -11,7 +11,6 @@ public class FileManager implements FileManagerFunctionally {
         this.dirLibrary = dirLibrary;
     }
 
-    @Override
     public void readFile(Library library) throws IOException {
         FileInputStream descriptorPosition = new FileInputStream(dirLibrary);
         descriptorPosition.getChannel().position(0);
@@ -24,7 +23,6 @@ public class FileManager implements FileManagerFunctionally {
         }
     }
 
-    @Override
     public void writeFile(Library library) throws IOException {
         BufferedWriter writerStream = new BufferedWriter(new FileWriter(dirLibrary));
         for (String elemKey : library.getLocalDictionary().keySet()) {
@@ -33,7 +31,6 @@ public class FileManager implements FileManagerFunctionally {
         }
     }
 
-    @Override
     public void deleteFile(String nameFile) {
         File deleteFile = new File(nameFile);
         deleteFile.delete();
