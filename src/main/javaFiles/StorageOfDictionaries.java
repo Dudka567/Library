@@ -21,7 +21,7 @@ public class StorageOfDictionaries implements StorageOfDictionariesFunctionally 
     private File dirLibrary;
 
     public StorageOfDictionaries(String typeLibrary) {
-        this.dirLibrary = searchStorage(typeLibrary);
+        this.dirLibrary = new File(searchStorage(typeLibrary));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class StorageOfDictionaries implements StorageOfDictionariesFunctionally 
     }
 
     @Override
-    public File searchStorage(String expectedNameFile) {
+    public String searchStorage(String expectedNameFile) {
         try {
             File dir = new File(SOURCE_DIRECTORY);
             List<File> listFilesInDirectory = new ArrayList<>();
@@ -68,17 +68,17 @@ public class StorageOfDictionaries implements StorageOfDictionariesFunctionally 
 
             for (File file : listFilesInDirectory) {
                 if (isCheckedStorage(file, expectedNameFile)) {
-                    return file;
+                    return file.getPath();
                 }
             }
             File file = new File(PATTERN_NAME_LIBRARY_FILE + expectedNameFile + EXPANSION);
             try (FileWriter writer = new FileWriter(file)) {
-                return file;
+                return file.getPath();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new File("");
+        return "";
     }
 
     @Override

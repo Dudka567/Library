@@ -11,7 +11,7 @@ import java.util.Map;
 public class LibraryTest {
     private static final String TYPE_LIBRARY_ONE = "1";
     private static final String TYPE_LIBRARY_THIRD = "3";
-    private static final String PATH_TESTLIBRARY = "..\\resources\\LibraryType3.txt";
+    private static final String PATH_TESTLIBRARY = "\\resources\\LibraryType3.txt";
     private static final String CORRECT_KEY = "cars";
     private static final String CORRECT_VALUE = "карс";
     private static final String INCORRECT_KEY = "carsz";
@@ -33,9 +33,9 @@ public class LibraryTest {
     public void testSearchLibrary_TypeOne_InDirectory() throws IOException {
         StorageOfDictionaries storageOfDictionaries = new StorageOfDictionaries(TYPE_LIBRARY_THIRD);
 
-        File actrual = storageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
+        String actrual = storageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
 
-        File expected = new File(PATH_TESTLIBRARY);
+        String expected = "src\\main" + new File(PATH_TESTLIBRARY).getPath();
         Assert.assertEquals(expected, actrual);
     }
 
@@ -47,9 +47,10 @@ public class LibraryTest {
 
         LibraryFactory libraryFactory = new LibraryFactory(config);
         libraryFactory.createLibraries();
-        File actrual = storageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
+        String actrual = storageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
 
-        File expected = new File(PATH_TESTLIBRARY);
+
+        String expected = "src\\main" + new File(PATH_TESTLIBRARY).getPath();
         Assert.assertEquals(expected, actrual);
 
     }

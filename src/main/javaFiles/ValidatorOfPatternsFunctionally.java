@@ -1,6 +1,6 @@
 package src.main.javaFiles;
 
 public interface ValidatorOfPatternsFunctionally {
-    public boolean isValidateKey(String key);
-    public boolean isValidateValue(String value);
+     boolean isValidateKey(String key);
+     boolean isValidateValue(String value);
 }

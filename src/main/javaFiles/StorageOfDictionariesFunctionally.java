@@ -8,7 +8,7 @@ public interface StorageOfDictionariesFunctionally {
 
     void writeStorage(Map<String, String> library);
 
-    File searchStorage(String expectedNameFile);
+    String searchStorage(String expectedNameFile);
 
     boolean isCheckedStorage(File file, String expectedNameFile);
 }
