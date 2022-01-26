@@ -1,7 +1,7 @@
 package src.main.javaFiles; 
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 public interface LibraryFunctionally {
     void readPairs() throws IOException;
@@ -12,7 +12,7 @@ public interface LibraryFunctionally {
 
     String addPair(String key, String value) throws IOException;
 
-     LinkedHashMap<String, String> getLocalDictionary();
+     Map<String, String> getLocalDictionary();
 
      String getNameLibrary();
 

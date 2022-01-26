@@ -1,136 +1,90 @@
-package src.main.javaFiles; 
+package src.main.javaFiles;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleApp {
-    public static final String ASK_ABOUT_TYPE_DICTIONARY = "What type of dictionary do you want to work with?";
-    public static final String ASK_ABOUT_OPERATION_DICTIONARY = "What kind of dictionary operation do you want to perform?\n";
-    public static final String CHAR_FOR_NEXT_LINE = "\n";
-    public static final String EXIT = "Enter: exit - to close the application";
-    public static final String CHOOSE_USER = "Enter the number corresponding to your choice:";
-    public static final String CHAR_POINT = ".";
-    public static final String EXIT_LINE = "exit";
-    public static final String KEY = "Key:";
-    public static final String VALUE = "Value:";
-    public static final String CHAR_SPACE = " ";
-    public static final String NOT_SEARCH = "There is no such answer option.\nPlease try typing again.";
-    public static final String ERROR_TYPE_DATA = "Invalid data type.";
-    public static final String ERROR_NAME_FILE = "Wrong file name.";
-    public static final String ERROR_FIND_PAIRS = "The pair is missing from the dictionary.";
-    public static final String INPUT_KEY = "Enter the key:";
-    public static final String INPUT_VALUE = "Enter a value:";
+    private Map<String, LibraryFunctionally> listDictionaries;
 
-    private boolean exitMainMenu = false;
-    private boolean exitLibraryMenu = false;
-    private String userSelect;
-    private int userSelectForDictionary = 0;
-    private Scanner user = new Scanner(System.in);
-
-    private Map<String, LibraryFunctionally> libraryFactory;
-
-
-    public ConsoleApp(LibraryFactory libraryFactory) throws IOException {
-        this.libraryFactory = libraryFactory.createLibraries();
+    public ConsoleApp(LibraryFactory libraryFactory) {
+        this.listDictionaries = libraryFactory.createLibraries();
     }
 
-    public void work() throws IOException {
+    public void work() {
+
+        boolean exitMainMenu = false;
+        String userSelect;
         while (!exitMainMenu) {
 
-            System.out.print(ASK_ABOUT_TYPE_DICTIONARY + CHAR_FOR_NEXT_LINE);
-            for (String variant : libraryFactory.keySet()) {
-                System.out.println(variant + CHAR_POINT + libraryFactory.get(variant).getNameLibrary());
+            System.out.print(ConsoleConstants.ASK_ABOUT_TYPE_DICTIONARY + ConsoleConstants.CHAR_FOR_NEXT_LINE);
+            for (String variant : listDictionaries.keySet()) {
+                System.out.println(variant + ConsoleConstants.CHAR_POINT + listDictionaries.get(variant).getNameLibrary());
             }
-            System.out.print(EXIT + CHAR_FOR_NEXT_LINE + CHOOSE_USER);
+            System.out.print(ConsoleConstants.EXIT + ConsoleConstants.CHAR_FOR_NEXT_LINE + ConsoleConstants.CHOOSE_USER);
             try {
-                userSelect = user.next();
+                userSelect = ConsoleConstants.user.next();
 
-                for (String compareLine : libraryFactory.keySet()) {
-                    if (userSelect.equals(EXIT_LINE)) {
+                for (String compareLine : listDictionaries.keySet()) {
+                    if (userSelect.equals(ConsoleConstants.EXIT_LINE)) {
                         exitMainMenu = true;
                         break;
-                    } else if (libraryFactory.keySet().contains(compareLine)) {
-                        for (String Line : libraryFactory.keySet()) {
+                    } else if (listDictionaries.keySet().contains(compareLine)) {
+                        for (String Line : listDictionaries.keySet()) {
                             if (userSelect.equals(Line)) {
-                                workWithLibrary(libraryFactory.get(Line));
+                                workWithLibrary(listDictionaries.get(Line));
                                 break;
                             }
                         }
-                        System.out.println(NOT_SEARCH);
+                        System.out.println(ConsoleConstants.NOT_SEARCH);
                         break;
                     }
-
                 }
 
             } catch (NumberFormatException e) {
-                System.out.println(ERROR_TYPE_DATA);
+                System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
             } catch (NullPointerException e) {
-                System.out.println(ERROR_NAME_FILE);
+                System.out.println(ConsoleConstants.ERROR_NAME_FILE);
             }
-
         }
     }
 
-    public void workWithLibrary(LibraryFunctionally library) throws IOException {
+    public void workWithLibrary(LibraryFunctionally library) {
+        boolean exitLibraryMenu = false;
+        int userSelectForDictionary;
         while (!exitLibraryMenu) {
-            System.out.print(ASK_ABOUT_OPERATION_DICTIONARY);
+            System.out.print(ConsoleConstants.ASK_ABOUT_OPERATION_DICTIONARY);
             for (TypesOperations line : TypesOperations.values()) {
                 System.out.print(line.getALLINFO());
             }
-            System.out.print(CHOOSE_USER);
+            System.out.print(ConsoleConstants.CHOOSE_USER);
             try {
-                userSelectForDictionary = Integer.parseInt(user.next());
+                userSelectForDictionary = Integer.parseInt(ConsoleConstants.user.next());
                 TypesOperations type = TypesOperations.fromValue(String.valueOf(userSelectForDictionary));
+                Map<String, Action> menuForLibrary = new HashMap<>();
+                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_ONE.getNUMBER(), new ActionReadPairs(library));
+                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_TWO.getNUMBER(), new ActionAddPairs(library));
+                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_THREE.getNUMBER(), new ActionDeletePairs(library));
+                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_FOUR.getNUMBER(), new ActionSearchPair(library));
+                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_FIFE.getNUMBER(), new ActionExitLibrary(this));
 
-                switch (type) {
-                    case CHOOSE_OPERATION_ONE: {
-                        library.readPairs();
-                        for (String lineKey : library.getLocalDictionary().keySet()) {
-                            System.out.println(KEY + lineKey + CHAR_SPACE + VALUE + library.getLocalDictionary().get(lineKey));
-                        }
-                        break;
-                    }
-                    case CHOOSE_OPERATION_TWO: {
-                        System.out.print(INPUT_KEY);
-                        String tempKey = user.next();
-                        System.out.print(INPUT_VALUE);
-                        String tempValue = user.next();
-                        System.out.println(library.addPair(tempKey, tempValue));
-                        break;
-                    }
-                    case CHOOSE_OPERATION_THREE: {
-                        System.out.print(INPUT_KEY);
-                        String tempKey = user.next();
-                        System.out.println(library.deletePair(tempKey));
-                        break;
-                    }
-                    case CHOOSE_OPERATION_FOUR: {
-                        System.out.print(INPUT_KEY);
-                        String tempKey = user.next();
-                        System.out.println(library.searchPair(tempKey));
-                        break;
-                    }
-                    case CHOOSE_OPERATION_FIFE: {
-                        exitLibraryMenu = true;
-                        break;
-                    }
-                    default: {
-                        System.out.println(NOT_SEARCH);
-                        break;
-                    }
+                if (menuForLibrary.get(type.getNUMBER()) == null) {
+                    System.out.println(ConsoleConstants.NOT_SEARCH);
+                } else {
+                    menuForLibrary.get(type.getNUMBER()).execute();
                 }
+
             } catch (NumberFormatException e) {
-                System.out.println(ERROR_TYPE_DATA);
+                System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
             } catch (NullPointerException e) {
-                System.out.println(ERROR_FIND_PAIRS);
+                System.out.println(ConsoleConstants.ERROR_FIND_PAIRS);
             } catch (IOException e) {
-                System.out.println(ERROR_NAME_FILE);
+                System.out.println(ConsoleConstants.ERROR_NAME_FILE);
             }
 
         }
-        exitLibraryMenu = false;
 
     }
 

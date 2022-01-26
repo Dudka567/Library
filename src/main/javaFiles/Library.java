@@ -1,41 +1,35 @@
-package src.main.javaFiles; 
+package src.main.javaFiles;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 public class Library implements LibraryFunctionally {
-    public static final String PAIR_MISSING = "The pair is missing from the dictionary.";
-    public static final String INCORRECT_KEY_AND_VALUE_FORMAT = "Incorrect key and value format.";
-    public static final String INCORRECT_KEY_FORMAT = "Incorrect key format.";
-    public static final String INCORRECT_VALUE_FORMAT = "Incorrect value format.";
-    public static final String PAIR_ADDED = "The pair has been added to the dictionary.";
-    public static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
-    public static final String PAIR_SEARCHED = "Value: ";
+    private static final String PAIR_MISSING = "The pair is missing from the dictionary.";
+    private static final String INCORRECT_KEY_AND_VALUE_FORMAT = "Incorrect key and value format.";
+    private static final String INCORRECT_KEY_FORMAT = "Incorrect key format.";
+    private static final String INCORRECT_VALUE_FORMAT = "Incorrect value format.";
+    private static final String PAIR_ADDED = "The pair has been added to the dictionary.";
+    private static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
+    private static final String PAIR_SEARCHED = "Value: ";
 
-    private FileManager mainManager;
+    private StorageOfDictionariesFunctionally mainLibraryStorage;
+    private ValidatorOfPatternsFunctionally mainLibraryValidator;
 
-    private LinkedHashMap<String, String> localDictionary;
-
-    private Pattern patternKey;
-    private Pattern patternValue;
-
+    private Map<String, String> localDictionary;
 
     private String nameLibrary;
     private String typeLibrary;
 
-    public Library(String patternKey, String patternValue, String nameLibrary, String typeLibrary, FileManager mainManager) throws IOException {
-        this.patternKey = Pattern.compile(patternKey);
-        this.patternValue = Pattern.compile(patternValue);
+    public Library(ValidatorOfPatterns validatorOfPatterns, String nameLibrary, String typeLibrary, StorageOfDictionariesFunctionally mainLibraryStorage) {
+        this.mainLibraryValidator = validatorOfPatterns;
         this.nameLibrary = nameLibrary;
         this.typeLibrary = typeLibrary;
-        this.mainManager = mainManager;
+        this.mainLibraryStorage = mainLibraryStorage;
         localDictionary = new LinkedHashMap<>();
-        mainManager.readFile(this);
+        mainLibraryStorage.readStorage(getLocalDictionary());
     }
 
-    public LinkedHashMap<String, String> getLocalDictionary() {
+    public Map<String, String> getLocalDictionary() {
         return localDictionary;
     }
 
@@ -48,37 +42,36 @@ public class Library implements LibraryFunctionally {
     }
 
     @Override
-    public void readPairs() throws IOException {
-        mainManager.readFile(this);
+    public void readPairs() {
+        mainLibraryStorage.readStorage(getLocalDictionary());
     }
 
     @Override
-    public String deletePair(String key) throws IOException {
-        mainManager.readFile(this);
+    public String deletePair(String key) {
+        mainLibraryStorage.readStorage(getLocalDictionary());
         localDictionary.remove(key);
-        mainManager.writeFile(this);
+        mainLibraryStorage.writeStorage(getLocalDictionary());
         return PAIR_DELETED;
     }
 
     @Override
-    public String searchPair(String key) throws IOException {
-        mainManager.readFile(this);
+    public String searchPair(String key) {
+        mainLibraryStorage.readStorage(getLocalDictionary());
         return localDictionary.get(key).equals("null") ? PAIR_MISSING : PAIR_SEARCHED + localDictionary.get(key);
     }
 
     @Override
-    public String addPair(String key, String value) throws IOException {
-        Matcher matcherKey = patternKey.matcher(key);
-        Matcher matcherValue = patternValue.matcher(value);
+    public String addPair(String key, String value) {
 
-        mainManager.readFile(this);
-        if (matcherKey.matches() && matcherValue.matches()) {
+        mainLibraryStorage.readStorage(getLocalDictionary());
+
+        if (mainLibraryValidator.isValidateKey(key) && mainLibraryValidator.isValidateValue(value)) {
             localDictionary.put(key, value);
-            mainManager.writeFile(this);
-
-        } else if (!matcherKey.matches() && !matcherValue.matches()) return INCORRECT_KEY_AND_VALUE_FORMAT;
-        else if (!matcherKey.matches()) return INCORRECT_KEY_FORMAT;
-        else if (!matcherValue.matches()) return INCORRECT_VALUE_FORMAT;
+            mainLibraryStorage.writeStorage(getLocalDictionary());
+        } else if (!mainLibraryValidator.isValidateKey(key) && !mainLibraryValidator.isValidateValue(value))
+            return INCORRECT_KEY_AND_VALUE_FORMAT;
+        else if (!mainLibraryValidator.isValidateKey(key)) return INCORRECT_KEY_FORMAT;
+        else if (!mainLibraryValidator.isValidateValue(value)) return INCORRECT_VALUE_FORMAT;
 
         return PAIR_ADDED;
     }
