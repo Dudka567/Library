@@ -1,4 +1,0 @@
-[A-Za-z]{4},[а-яёА-ЯЁ]{4},English-Russian dictionary,1
-[0-9]{5},[а-яёА-ЯЁ]{5},Digital-Russian dictionary,2
-[A]{4},[Ё]{4},Test dictionary,3
-[ыыв]{3},{1}{3},Bad dictionary,4
