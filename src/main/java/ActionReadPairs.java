@@ -1,16 +1,14 @@
-package src.main.javaFiles;
-
-import java.io.IOException;
+package src.main.java;
 
 public class ActionReadPairs implements Action {
-    private LibraryFunctionally library;
+    private Library library;
 
-    public ActionReadPairs(LibraryFunctionally library) {
+    public ActionReadPairs(Library library) {
         this.library = library;
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute() {
         library.readPairs();
         for (String lineKey : library.getLocalDictionary().keySet()) {
             System.out.println(ConsoleConstants.KEY + lineKey + ConsoleConstants.CHAR_SPACE + ConsoleConstants.VALUE + library.getLocalDictionary().get(lineKey));

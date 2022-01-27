@@ -1,6 +1,6 @@
 package src.test.javaFiles;
 
-import src.main.javaFiles.*;
+import src.main.java.*;
 import org.junit.*;
 
 import java.io.File;
@@ -31,9 +31,9 @@ public class LibraryTest {
 
     @Test
     public void testSearchLibrary_TypeOne_InDirectory() throws IOException {
-        StorageOfDictionaries storageOfDictionaries = new StorageOfDictionaries(TYPE_LIBRARY_THIRD);
+        FilesStorageOfDictionaries filesStorageOfDictionaries = new FilesStorageOfDictionaries(TYPE_LIBRARY_THIRD);
 
-        String actrual = storageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
+        String actrual = filesStorageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
 
         String expected = "src\\main" + new File(PATH_TESTLIBRARY).getPath();
         Assert.assertEquals(expected, actrual);
@@ -42,12 +42,12 @@ public class LibraryTest {
     @Test
     public void testCreateLibrary_TypeThird_InDirectory() throws IOException {
         Config config = new Config();
-        StorageOfDictionaries storageOfDictionaries = new StorageOfDictionaries(TYPE_LIBRARY_THIRD);
+        FilesStorageOfDictionaries filesStorageOfDictionaries = new FilesStorageOfDictionaries(TYPE_LIBRARY_THIRD);
         deleteFile(PATH_TESTLIBRARY);
 
         LibraryFactory libraryFactory = new LibraryFactory(config);
         libraryFactory.createLibraries();
-        String actrual = storageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
+        String actrual = filesStorageOfDictionaries.searchStorage(TYPE_LIBRARY_THIRD);
 
 
         String expected = "src\\main" + new File(PATH_TESTLIBRARY).getPath();
@@ -58,7 +58,7 @@ public class LibraryTest {
     @Test
     public void testAddPair_InLibraryTypeOne() throws IOException {
         LibraryFactory libraryFactory = new LibraryFactory(new Config());
-        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
+        Map<String, Library> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY, CORRECT_VALUE);
 
         LinkedHashMap<String, String> expected = new LinkedHashMap<>();
@@ -69,7 +69,7 @@ public class LibraryTest {
     @Test
     public void testValidation_ForAddPairTypeOne() throws IOException {
         LibraryFactory libraryFactory = new LibraryFactory(new Config());
-        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
+        Map<String, Library> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).addPair(INCORRECT_KEY, INCORRECT_VALUE);
 
         String expected = null;
@@ -80,7 +80,7 @@ public class LibraryTest {
     @Test
     public void testDeletePair_InLibraryTypeOne() throws IOException {
         LibraryFactory libraryFactory = new LibraryFactory(new Config());
-        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
+        Map<String, Library> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY, CORRECT_VALUE);
         libraries.get(TYPE_LIBRARY_ONE).deletePair(CORRECT_KEY);
 
@@ -91,7 +91,7 @@ public class LibraryTest {
     @Test
     public void testSearchPair_InLibraryTypeOne() throws IOException {
         LibraryFactory libraryFactory = new LibraryFactory(new Config());
-        Map<String, LibraryFunctionally> libraries = libraryFactory.createLibraries();
+        Map<String, Library> libraries = libraryFactory.createLibraries();
         libraries.get(TYPE_LIBRARY_ONE).deletePair(CORRECT_KEY);
         libraries.get(TYPE_LIBRARY_ONE).addPair(CORRECT_KEY, CORRECT_VALUE);
 

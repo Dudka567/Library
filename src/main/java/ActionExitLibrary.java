@@ -1,8 +1,6 @@
-package src.main.javaFiles;
+package src.main.java;
 
-import java.io.IOException;
-
-public class ActionExitLibrary implements Action{
+public class ActionExitLibrary implements Action {
     ConsoleApp consoleApp;
 
     public ActionExitLibrary(ConsoleApp consoleApp) {
@@ -10,7 +8,7 @@ public class ActionExitLibrary implements Action{
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute() {
         consoleApp.work();
     }
 }

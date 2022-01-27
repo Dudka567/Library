@@ -1,12 +1,11 @@
-package src.main.javaFiles;
+package src.main.java;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class ConsoleApp {
-    private Map<String, LibraryFunctionally> listDictionaries;
+    private Map<String, Library> listDictionaries;
 
     public ConsoleApp(LibraryFactory libraryFactory) {
         this.listDictionaries = libraryFactory.createLibraries();
@@ -50,7 +49,7 @@ public class ConsoleApp {
         }
     }
 
-    public void workWithLibrary(LibraryFunctionally library) {
+    public void workWithLibrary(Library library) {
         boolean exitLibraryMenu = false;
         int userSelectForDictionary;
         while (!exitLibraryMenu) {
@@ -79,10 +78,7 @@ public class ConsoleApp {
                 System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
             } catch (NullPointerException e) {
                 System.out.println(ConsoleConstants.ERROR_FIND_PAIRS);
-            } catch (IOException e) {
-                System.out.println(ConsoleConstants.ERROR_NAME_FILE);
             }
-
         }
 
     }

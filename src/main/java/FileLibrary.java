@@ -1,9 +1,9 @@
-package src.main.javaFiles;
+package src.main.java;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Library implements LibraryFunctionally {
+public class FileLibrary implements Library {
     private static final String PAIR_MISSING = "The pair is missing from the dictionary.";
     private static final String INCORRECT_KEY_AND_VALUE_FORMAT = "Incorrect key and value format.";
     private static final String INCORRECT_KEY_FORMAT = "Incorrect key format.";
@@ -12,16 +12,16 @@ public class Library implements LibraryFunctionally {
     private static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
     private static final String PAIR_SEARCHED = "Value: ";
 
-    private StorageOfDictionariesFunctionally mainLibraryStorage;
-    private ValidatorOfPatternsFunctionally mainLibraryValidator;
+    private StorageOfDictionaries mainLibraryStorage;
+    private ValidatorOfPatterns mainLibraryValidator;
 
     private Map<String, String> localDictionary;
 
     private String nameLibrary;
     private String typeLibrary;
 
-    public Library(ValidatorOfPatterns validatorOfPatterns, String nameLibrary, String typeLibrary, StorageOfDictionariesFunctionally mainLibraryStorage) {
-        this.mainLibraryValidator = validatorOfPatterns;
+    public FileLibrary(ValidatorOfPatterns libraryValidator, String nameLibrary, String typeLibrary, StorageOfDictionaries mainLibraryStorage) {
+        this.mainLibraryValidator = libraryValidator;
         this.nameLibrary = nameLibrary;
         this.typeLibrary = typeLibrary;
         this.mainLibraryStorage = mainLibraryStorage;
@@ -35,10 +35,6 @@ public class Library implements LibraryFunctionally {
 
     public String getNameLibrary() {
         return nameLibrary;
-    }
-
-    public String getTypeLibrary() {
-        return typeLibrary;
     }
 
     @Override

@@ -1,16 +1,14 @@
-package src.main.javaFiles;
-
-import java.io.IOException;
+package src.main.java;
 
 public class ActionDeletePairs implements Action {
-    private LibraryFunctionally library;
+    private Library library;
 
-    public ActionDeletePairs(LibraryFunctionally library) {
+    public ActionDeletePairs(Library library) {
         this.library = library;
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute() {
         System.out.print(ConsoleConstants.INPUT_KEY);
         String tempKey = ConsoleConstants.user.next();
         System.out.println(library.deletePair(tempKey));
