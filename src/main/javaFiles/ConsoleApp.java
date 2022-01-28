@@ -1,15 +1,24 @@
 package src.main.javaFiles;
 
+<<<<<<< Updated upstream:src/main/javaFiles/ConsoleApp.java
 import java.io.IOException;
 import java.util.HashMap;
+=======
+>>>>>>> Stashed changes:src/main/java/ConsoleApp.java
 import java.util.Map;
 
 
 public class ConsoleApp {
+<<<<<<< Updated upstream:src/main/javaFiles/ConsoleApp.java
     private Map<String, LibraryFunctionally> listDictionaries;
+=======
+    private Map<String, Library> listDictionaries;
+    private Map<Integer, Action> listAction;
+>>>>>>> Stashed changes:src/main/java/ConsoleApp.java
 
-    public ConsoleApp(LibraryFactory libraryFactory) {
-        this.listDictionaries = libraryFactory.createLibraries();
+    public ConsoleApp(Map<String, Library> listDictionaries, Map<Integer, Action> listAction) {
+        this.listDictionaries = listDictionaries;
+        this.listAction = listAction;
     }
 
     public void work() {
@@ -55,25 +64,21 @@ public class ConsoleApp {
         int userSelectForDictionary;
         while (!exitLibraryMenu) {
             System.out.print(ConsoleConstants.ASK_ABOUT_OPERATION_DICTIONARY);
-            for (TypesOperations line : TypesOperations.values()) {
-                System.out.print(line.getALLINFO());
+
+            for (Action actionInfo : listAction.values()) {
+                System.out.print(actionInfo.getINFO());
             }
+
             System.out.print(ConsoleConstants.CHOOSE_USER);
             try {
                 userSelectForDictionary = Integer.parseInt(ConsoleConstants.user.next());
-                TypesOperations type = TypesOperations.fromValue(String.valueOf(userSelectForDictionary));
-                Map<String, Action> menuForLibrary = new HashMap<>();
-                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_ONE.getNUMBER(), new ActionReadPairs(library));
-                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_TWO.getNUMBER(), new ActionAddPairs(library));
-                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_THREE.getNUMBER(), new ActionDeletePairs(library));
-                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_FOUR.getNUMBER(), new ActionSearchPair(library));
-                menuForLibrary.put(TypesOperations.CHOOSE_OPERATION_FIFE.getNUMBER(), new ActionExitLibrary(this));
 
-                if (menuForLibrary.get(type.getNUMBER()) == null) {
+                if (listAction.get(userSelectForDictionary) == null) {
                     System.out.println(ConsoleConstants.NOT_SEARCH);
-                } else {
-                    menuForLibrary.get(type.getNUMBER()).execute();
+                } else if (userSelectForDictionary == listAction.size()) {
+                    exitLibraryMenu = true;
                 }
+                listAction.get(userSelectForDictionary).execute(library);
 
             } catch (NumberFormatException e) {
                 System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
