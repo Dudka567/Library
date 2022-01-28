@@ -1,20 +1,11 @@
-package src.main.javaFiles;
+package src.main.java;
 
-<<<<<<< Updated upstream:src/main/javaFiles/ConsoleApp.java
-import java.io.IOException;
-import java.util.HashMap;
-=======
->>>>>>> Stashed changes:src/main/java/ConsoleApp.java
 import java.util.Map;
 
 
 public class ConsoleApp {
-<<<<<<< Updated upstream:src/main/javaFiles/ConsoleApp.java
-    private Map<String, LibraryFunctionally> listDictionaries;
-=======
     private Map<String, Library> listDictionaries;
     private Map<Integer, Action> listAction;
->>>>>>> Stashed changes:src/main/java/ConsoleApp.java
 
     public ConsoleApp(Map<String, Library> listDictionaries, Map<Integer, Action> listAction) {
         this.listDictionaries = listDictionaries;
@@ -59,7 +50,7 @@ public class ConsoleApp {
         }
     }
 
-    public void workWithLibrary(LibraryFunctionally library) {
+    public void workWithLibrary(Library library) {
         boolean exitLibraryMenu = false;
         int userSelectForDictionary;
         while (!exitLibraryMenu) {
@@ -84,10 +75,7 @@ public class ConsoleApp {
                 System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
             } catch (NullPointerException e) {
                 System.out.println(ConsoleConstants.ERROR_FIND_PAIRS);
-            } catch (IOException e) {
-                System.out.println(ConsoleConstants.ERROR_NAME_FILE);
             }
-
         }
 
     }

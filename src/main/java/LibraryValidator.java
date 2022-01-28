@@ -1,12 +1,12 @@
-package src.main.javaFiles;
+package src.main.java;
 
 import java.util.regex.Pattern;
 
-public class ValidatorOfPatterns implements ValidatorOfPatternsFunctionally{
+public class LibraryValidator implements ValidatorOfPatterns {
     private Pattern patternKey;
     private Pattern patternValue;
 
-    public ValidatorOfPatterns(String patternKey, String patternValue) {
+    public LibraryValidator(String patternKey, String patternValue) {
         this.patternKey = Pattern.compile(patternKey);
         this.patternValue = Pattern.compile(patternValue);
     }

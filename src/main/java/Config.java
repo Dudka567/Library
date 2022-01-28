@@ -1,4 +1,4 @@
-package src.main.javaFiles;
+package src.main.java;
 
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -16,7 +16,6 @@ public class Config {
                 FileInputStream descriptorPosition = new FileInputStream(CONFIG_DIR);
                 BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
         ) {
-            descriptorPosition.getChannel().position(0);
             List<DictionaryConfig> listDictionaries = new ArrayList<>();
 
             while (readerStream.ready()) {
