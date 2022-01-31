@@ -16,7 +16,7 @@ public class FilesStorage implements Storage {
     private static final String EXPANSION = ".txt";
     private static final String SOURCE_DIRECTORY = "src/main/resources";
     private static final String NAME_FILE = "LibraryType";
-    private static final String PATTERN_NAME_LIBRARY_FILE = "src/main//resources/LibraryType";
+    private static final String PATTERN_NAME_LIBRARY_FILE = "src/main/resources/LibraryType";
 
     private File dirLibrary;
 

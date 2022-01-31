@@ -1,4 +1,4 @@
-package src.test.javaFiles;
+package src.test.java;
 
 import org.junit.*;
 import src.main.java.controller.Library;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class LibraryTest {
     private static final String TYPE_LIBRARY_ONE = "1";
     private static final String TYPE_LIBRARY_THIRD = "3";
-    private static final String PATH_TESTLIBRARY = "\\resources\\LibraryType3.txt";
+    private static final String PATH_TESTLIBRARY = "src/test/resources/LibraryType3.txt";
     private static final String CORRECT_KEY = "cars";
     private static final String CORRECT_VALUE = "карс";
     private static final String INCORRECT_KEY = "carsz";
@@ -39,7 +39,7 @@ public class LibraryTest {
 
         String actrual = storage.searchStorage(TYPE_LIBRARY_THIRD);
 
-        String expected = "src\\main" + new File(PATH_TESTLIBRARY).getPath();
+        String expected = "src/test" + new File(PATH_TESTLIBRARY).getPath();
         Assert.assertEquals(expected, actrual);
     }
 
