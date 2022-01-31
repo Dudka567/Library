@@ -1,6 +1,6 @@
-package src.main.java;
+package src.main.java.controller.validators;
 
-public interface ValidatorOfPatterns {
+public interface Validator {
     boolean isValidateKey(String key);
 
     boolean isValidateValue(String value);

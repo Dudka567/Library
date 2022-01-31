@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.infrastructure;
 
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -29,7 +29,7 @@ public class Config {
         return new ArrayList<>();
     }
 
-    class DictionaryConfig {
+    public class DictionaryConfig {
 
         public String getPatternKey() {
             return patternKey;

@@ -1,5 +1,11 @@
 package src.main.java;
 
+import src.main.java.view.menu.ConsoleApp;
+import src.main.java.infrastructure.Config;
+import src.main.java.controller.Library;
+import src.main.java.infrastructure.LibraryFactory;
+import src.main.java.view.commands.*;
+
 import java.util.HashMap;
 import java.util.Map;
 

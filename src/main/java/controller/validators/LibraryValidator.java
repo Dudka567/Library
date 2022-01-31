@@ -1,8 +1,8 @@
-package src.main.java;
+package src.main.java.controller.validators;
 
 import java.util.regex.Pattern;
 
-public class LibraryValidator implements ValidatorOfPatterns {
+public class LibraryValidator implements Validator {
     private Pattern patternKey;
     private Pattern patternValue;
 
@@ -13,13 +13,11 @@ public class LibraryValidator implements ValidatorOfPatterns {
 
     @Override
     public boolean isValidateKey(String key) {
-        System.out.println(patternKey.matcher(key).matches());
         return patternKey.matcher(key).matches();
     }
 
     @Override
     public boolean isValidateValue(String value) {
-        System.out.println(patternValue.matcher(value).matches());
         return patternValue.matcher(value).matches();
     }
 

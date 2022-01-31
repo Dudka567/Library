@@ -1,8 +1,8 @@
-package src.main.java;
+package src.main.java.model;
 
 import java.util.Map;
 
-public interface StorageOfDictionaries {
+public interface Storage {
     void readStorage(Map<String, String> library);
 
     void writeStorage(Map<String, String> library);

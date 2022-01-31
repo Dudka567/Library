@@ -1,4 +1,7 @@
-package src.main.java;
+package src.main.java.view.commands;
+
+import src.main.java.view.menu.ConsoleConstants;
+import src.main.java.controller.Library;
 
 public class ActionSearchPair implements Action {
     private final String INFO = "4.Search records by key\n";

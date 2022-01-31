@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.model;
 
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FilesStorageOfDictionaries implements StorageOfDictionaries {
+public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
     private static final String EXPANSION = ".txt";
     private static final String SOURCE_DIRECTORY = "src/main/resources";
@@ -20,7 +20,7 @@ public class FilesStorageOfDictionaries implements StorageOfDictionaries {
 
     private File dirLibrary;
 
-    public FilesStorageOfDictionaries(String typeLibrary) {
+    public FilesStorage(String typeLibrary) {
         this.dirLibrary = new File(searchStorage(typeLibrary));
     }
 

@@ -1,4 +1,11 @@
-package src.main.java;
+package src.main.java.infrastructure;
+
+import src.main.java.controller.validators.LibraryValidator;
+import src.main.java.controller.FileLibrary;
+import src.main.java.controller.validators.Validator;
+import src.main.java.model.FilesStorage;
+import src.main.java.controller.Library;
+
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,12 +21,12 @@ public class LibraryFactory {
 
     public Map<String, Library> createLibraries() {
         FileLibrary tempFileLibrary;
-        LibraryValidator tempValidator;
-        FilesStorageOfDictionaries tempStorage;
+        Validator tempValidator;
+        FilesStorage tempStorage;
 
         Map<String, Library> listLibraries = new LinkedHashMap<>();
         for (Config.DictionaryConfig dictionaryConfig : config.readConfig()) {
-            tempStorage = new FilesStorageOfDictionaries(dictionaryConfig.getTypeDictionary());
+            tempStorage = new FilesStorage(dictionaryConfig.getTypeDictionary());
             tempValidator = new LibraryValidator(
                     dictionaryConfig.getPatternKey(),
                     dictionaryConfig.getPatternValue());
@@ -28,7 +35,6 @@ public class LibraryFactory {
                     dictionaryConfig.getNameDictionary(),
                     dictionaryConfig.getTypeDictionary(),
                     tempStorage);
-
 
 
             listLibraries.put(dictionaryConfig.getTypeDictionary(), tempFileLibrary);

@@ -1,4 +1,7 @@
-package src.main.java;
+package src.main.java.view.commands;
+
+import src.main.java.view.menu.ConsoleConstants;
+import src.main.java.controller.Library;
 
 public class ActionDeletePairs implements Action {
     private final String INFO = "3.Delete an entry\n";
