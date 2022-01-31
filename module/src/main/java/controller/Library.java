@@ -1,6 +1,6 @@
 package src.main.java.controller;
 
-import src.main.java.model.Storage;
+import lombok.NonNull;
 
 import java.util.Map;
 
@@ -13,6 +13,7 @@ public interface Library {
 
     String addPair(String key, String value);
 
+    @NonNull
     Map<String, String> getLocalDictionary();
 
     String getNameLibrary();

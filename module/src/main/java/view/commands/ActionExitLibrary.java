@@ -1,5 +1,6 @@
 package src.main.java.view.commands;
 
+import lombok.NonNull;
 import src.main.java.controller.Library;
 
 public class ActionExitLibrary implements Action {
@@ -11,7 +12,7 @@ public class ActionExitLibrary implements Action {
         return INFO;
     }
 
-    public void execute(Object actionObject) {
+    public void execute(@NonNull Object actionObject) {
         Library library = (Library) actionObject;
         System.out.println(END_WORK + library.getNameLibrary());
     }

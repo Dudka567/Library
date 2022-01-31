@@ -1,5 +1,6 @@
 package src.main.java.view.commands;
 
+import lombok.NonNull;
 import src.main.java.view.menu.ConsoleConstants;
 import src.main.java.controller.Library;
 
@@ -11,7 +12,7 @@ public class ActionDeletePairs implements Action {
         return INFO;
     }
 
-    public void execute(Object actionObject) {
+    public void execute(@NonNull Object actionObject) {
         Library library = (Library) actionObject;
         System.out.print(ConsoleConstants.INPUT_KEY);
         String tempKey = ConsoleConstants.user.next();

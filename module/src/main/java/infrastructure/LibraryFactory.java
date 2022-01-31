@@ -1,5 +1,7 @@
 package src.main.java.infrastructure;
 
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import src.main.java.controller.validators.LibraryValidator;
 import src.main.java.controller.FileLibrary;
 import src.main.java.controller.validators.Validator;
@@ -10,16 +12,12 @@ import src.main.java.controller.Library;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
+@AllArgsConstructor
+@NonNull
 public class LibraryFactory {
     private Config config;
 
-    public LibraryFactory(Config config) {
-        this.config = config;
-    }
-
-
-    public Map<String, Library> createLibraries() {
+    public @NonNull Map<String, Library> createLibraries() {
         FileLibrary tempFileLibrary;
         Validator tempValidator;
         FilesStorage tempStorage;

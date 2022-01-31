@@ -1,19 +1,19 @@
 package src.main.java.view.menu;
 
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import src.main.java.controller.Library;
 import src.main.java.view.commands.Action;
 
 import java.util.Map;
 
-
+@AllArgsConstructor
+@NonNull
 public class ConsoleApp {
+    @NonNull
     private Map<String, Library> listDictionaries;
+    @NonNull
     private Map<Integer, Action> listAction;
-
-    public ConsoleApp(Map<String, Library> listDictionaries, Map<Integer, Action> listAction) {
-        this.listDictionaries = listDictionaries;
-        this.listAction = listAction;
-    }
 
     public void work() {
 

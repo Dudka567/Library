@@ -1,5 +1,7 @@
 package src.main.java.controller;
 
+import lombok.Getter;
+import lombok.NonNull;
 import src.main.java.controller.validators.ResultValidation;
 import src.main.java.controller.validators.Validator;
 import src.main.java.model.Storage;
@@ -12,11 +14,16 @@ public class FileLibrary implements Library {
     private static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
     private static final String PAIR_SEARCHED = "Value: ";
 
+    @NonNull
     private Storage mainLibraryStorage;
+    @NonNull
     private Validator mainValidator;
 
+    @Getter
+    @NonNull
     private Map<String, String> localDictionary;
 
+    @Getter
     private String nameLibrary;
     private String typeLibrary;
 
@@ -27,16 +34,6 @@ public class FileLibrary implements Library {
         this.mainLibraryStorage = mainLibraryStorage;
         localDictionary = new LinkedHashMap<>();
         mainLibraryStorage.readStorage(getLocalDictionary());
-    }
-
-    @Override
-    public Map<String, String> getLocalDictionary() {
-        return localDictionary;
-    }
-
-    @Override
-    public String getNameLibrary() {
-        return nameLibrary;
     }
 
     @Override

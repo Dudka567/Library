@@ -1,7 +1,9 @@
 package src.main.java.view.commands;
 
+import lombok.NonNull;
+
 public interface Action {
     String getINFO();
 
-    void execute(Object actionObject);
+    void execute(@NonNull Object actionObject);
 }

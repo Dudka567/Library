@@ -1,5 +1,7 @@
 package src.main.java.model;
 
+import lombok.NonNull;
+
 import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,10 +16,11 @@ import java.util.Map;
 public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
     private static final String EXPANSION = ".txt";
-    private static final String SOURCE_DIRECTORY = "src/main/resources";
+    private static final String SOURCE_DIRECTORY = "module/src/main/resources";
     private static final String NAME_FILE = "LibraryType";
-    private static final String PATTERN_NAME_LIBRARY_FILE = "src/main/resources/LibraryType";
+    private static final String PATTERN_NAME_LIBRARY_FILE = "module/src/main/resources/LibraryType";
 
+    @NonNull
     private File dirLibrary;
 
     public FilesStorage(String typeLibrary) {
@@ -25,7 +28,7 @@ public class FilesStorage implements Storage {
     }
 
     @Override
-    public void readStorage(Map<String, String> library) {
+    public void readStorage(@NonNull Map<String, String> library) {
         try (
                 FileInputStream descriptorPosition = new FileInputStream(dirLibrary);
                 BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
@@ -43,7 +46,7 @@ public class FilesStorage implements Storage {
     }
 
     @Override
-    public void writeStorage(Map<String, String> library) {
+    public void writeStorage(@NonNull Map<String, String> library) {
         try (
                 BufferedWriter writerStream = new BufferedWriter(new FileWriter(dirLibrary));
         ) {

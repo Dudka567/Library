@@ -1,9 +1,13 @@
 package src.main.java.controller.validators;
 
+import lombok.NonNull;
+
 import java.util.regex.Pattern;
 
 public class LibraryValidator implements Validator {
+    @NonNull
     private Pattern patternKey;
+    @NonNull
     private Pattern patternValue;
 
     public LibraryValidator(String patternKey, String patternValue) {

@@ -1,5 +1,7 @@
 package src.main.java.infrastructure;
 
+import lombok.Value;
+
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Config {
-    private static final String CONFIG_DIR = "src/main/resources/LibraryCollection.txt";
+    private static final String CONFIG_DIR = "module/src/main/resources/LibraryCollection.txt";
     private static final String REGEX_CHAR = ",";
 
     public List<DictionaryConfig> readConfig() {
@@ -29,23 +31,8 @@ public class Config {
         return new ArrayList<>();
     }
 
+    @Value
     public class DictionaryConfig {
-
-        public String getPatternKey() {
-            return patternKey;
-        }
-
-        public String getPatternValue() {
-            return patternValue;
-        }
-
-        public String getNameDictionary() {
-            return nameDictionary;
-        }
-
-        public String getTypeDictionary() {
-            return typeDictionary;
-        }
 
         private String patternKey;
         private String patternValue;
