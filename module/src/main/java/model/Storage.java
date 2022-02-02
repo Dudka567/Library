@@ -1,14 +1,12 @@
-package src.main.javaFiles;
+package src.main.java.model;
 
-import java.io.File;
 import java.util.Map;
 
-public interface StorageOfDictionariesFunctionally {
+public interface Storage {
     void readStorage(Map<String, String> library);
 
     void writeStorage(Map<String, String> library);
 
     String searchStorage(String expectedNameFile);
 
-    boolean isCheckedStorage(File file, String expectedNameFile);
 }

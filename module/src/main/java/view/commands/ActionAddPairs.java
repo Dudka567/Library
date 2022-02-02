@@ -1,16 +1,19 @@
-package src.main.javaFiles;
+package src.main.java.view.commands;
 
-import java.io.IOException;
+import src.main.java.view.menu.ConsoleConstants;
+import src.main.java.controller.Library;
 
 public class ActionAddPairs implements Action {
-    private LibraryFunctionally library;
+    private final String INFO = "2.Add an entry\n";
 
-    public ActionAddPairs(LibraryFunctionally library) {
-        this.library = library;
+    @Override
+    public String getINFO() {
+        return INFO;
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute(Object actionObject) {
+        Library library = (Library) actionObject;
         System.out.print(ConsoleConstants.INPUT_KEY);
         String tempKey = ConsoleConstants.user.next();
         System.out.print(ConsoleConstants.INPUT_VALUE);

@@ -1,27 +1,27 @@
-package src.main.javaFiles;
+package src.main.java.controller;
+
+import src.main.java.controller.validators.ResultValidation;
+import src.main.java.controller.validators.Validator;
+import src.main.java.model.Storage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Library implements LibraryFunctionally {
+public class FileLibrary implements Library {
     private static final String PAIR_MISSING = "The pair is missing from the dictionary.";
-    private static final String INCORRECT_KEY_AND_VALUE_FORMAT = "Incorrect key and value format.";
-    private static final String INCORRECT_KEY_FORMAT = "Incorrect key format.";
-    private static final String INCORRECT_VALUE_FORMAT = "Incorrect value format.";
-    private static final String PAIR_ADDED = "The pair has been added to the dictionary.";
     private static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
     private static final String PAIR_SEARCHED = "Value: ";
 
-    private StorageOfDictionariesFunctionally mainLibraryStorage;
-    private ValidatorOfPatternsFunctionally mainLibraryValidator;
+    private Storage mainLibraryStorage;
+    private Validator mainValidator;
 
     private Map<String, String> localDictionary;
 
     private String nameLibrary;
     private String typeLibrary;
 
-    public Library(ValidatorOfPatterns validatorOfPatterns, String nameLibrary, String typeLibrary, StorageOfDictionariesFunctionally mainLibraryStorage) {
-        this.mainLibraryValidator = validatorOfPatterns;
+    public FileLibrary(Validator mainValidator, String nameLibrary, String typeLibrary, Storage mainLibraryStorage) {
+        this.mainValidator = mainValidator;
         this.nameLibrary = nameLibrary;
         this.typeLibrary = typeLibrary;
         this.mainLibraryStorage = mainLibraryStorage;
@@ -29,16 +29,14 @@ public class Library implements LibraryFunctionally {
         mainLibraryStorage.readStorage(getLocalDictionary());
     }
 
+    @Override
     public Map<String, String> getLocalDictionary() {
         return localDictionary;
     }
 
+    @Override
     public String getNameLibrary() {
         return nameLibrary;
-    }
-
-    public String getTypeLibrary() {
-        return typeLibrary;
     }
 
     @Override
@@ -64,15 +62,14 @@ public class Library implements LibraryFunctionally {
     public String addPair(String key, String value) {
 
         mainLibraryStorage.readStorage(getLocalDictionary());
+        ResultValidation localResultValidation = new ResultValidation();
+        String answer = localResultValidation.getStringResultValidation(mainValidator.isValidateKey(key), mainValidator.isValidateValue(value));
 
-        if (mainLibraryValidator.isValidateKey(key) && mainLibraryValidator.isValidateValue(value)) {
+        if (localResultValidation.getBooleanResultValidation(mainValidator.isValidateKey(key), mainValidator.isValidateValue(value))) {
             localDictionary.put(key, value);
-            mainLibraryStorage.writeStorage(getLocalDictionary());
-        } else if (!mainLibraryValidator.isValidateKey(key) && !mainLibraryValidator.isValidateValue(value))
-            return INCORRECT_KEY_AND_VALUE_FORMAT;
-        else if (!mainLibraryValidator.isValidateKey(key)) return INCORRECT_KEY_FORMAT;
-        else if (!mainLibraryValidator.isValidateValue(value)) return INCORRECT_VALUE_FORMAT;
+            mainLibraryStorage.writeStorage(localDictionary);
+        }
 
-        return PAIR_ADDED;
+        return answer;
     }
 }

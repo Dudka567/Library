@@ -1,4 +1,4 @@
-package src.main.javaFiles;
+package src.main.java.model;
 
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class StorageOfDictionaries implements StorageOfDictionariesFunctionally {
+public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
     private static final String EXPANSION = ".txt";
     private static final String SOURCE_DIRECTORY = "src/main/resources";
@@ -20,7 +20,7 @@ public class StorageOfDictionaries implements StorageOfDictionariesFunctionally 
 
     private File dirLibrary;
 
-    public StorageOfDictionaries(String typeLibrary) {
+    public FilesStorage(String typeLibrary) {
         this.dirLibrary = new File(searchStorage(typeLibrary));
     }
 
@@ -67,7 +67,7 @@ public class StorageOfDictionaries implements StorageOfDictionariesFunctionally 
             }
 
             for (File file : listFilesInDirectory) {
-                if (isCheckedStorage(file, expectedNameFile)) {
+                if (isCheckedStorage(file.getName(), expectedNameFile)) {
                     return file.getPath();
                 }
             }
@@ -81,8 +81,7 @@ public class StorageOfDictionaries implements StorageOfDictionariesFunctionally 
         return "";
     }
 
-    @Override
-    public boolean isCheckedStorage(File file, String expectedNameFile) {
-        return file.getName().equals(NAME_FILE + expectedNameFile + EXPANSION);
+    public boolean isCheckedStorage(String fileName, String expectedNameFile) {
+        return fileName.equals(NAME_FILE + expectedNameFile + EXPANSION);
     }
 }

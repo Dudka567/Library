@@ -1,4 +1,4 @@
-package src.main.javaFiles;
+package src.main.java.infrastructure;
 
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -16,7 +16,6 @@ public class Config {
                 FileInputStream descriptorPosition = new FileInputStream(CONFIG_DIR);
                 BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
         ) {
-            descriptorPosition.getChannel().position(0);
             List<DictionaryConfig> listDictionaries = new ArrayList<>();
 
             while (readerStream.ready()) {
@@ -30,7 +29,7 @@ public class Config {
         return new ArrayList<>();
     }
 
-    class DictionaryConfig {
+    public class DictionaryConfig {
 
         public String getPatternKey() {
             return patternKey;
