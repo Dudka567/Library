@@ -1,6 +1,6 @@
 package src.main.java.controller;
 
-import src.main.java.controller.validators.ResultValidation;
+import src.main.java.controller.validators.ValidationResult;
 import src.main.java.controller.validators.Validator;
 import src.main.java.model.Storage;
 
@@ -60,16 +60,14 @@ public class FileLibrary implements Library {
 
     @Override
     public String addPair(String key, String value) {
-
         mainLibraryStorage.readStorage(getLocalDictionary());
-        ResultValidation localResultValidation = new ResultValidation();
-        String answer = localResultValidation.getStringResultValidation(mainValidator.isValidateKey(key), mainValidator.isValidateValue(value));
+        ValidationResult localResultValidation = mainValidator.validatePair(key, value);
 
-        if (localResultValidation.getBooleanResultValidation(mainValidator.isValidateKey(key), mainValidator.isValidateValue(value))) {
+        if (localResultValidation.getIsValidationResult()) {
             localDictionary.put(key, value);
             mainLibraryStorage.writeStorage(localDictionary);
         }
 
-        return answer;
+        return localResultValidation.getStringValidationResult();
     }
 }

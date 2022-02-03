@@ -12,14 +12,8 @@ public class LibraryValidator implements Validator {
     }
 
     @Override
-    public boolean isValidateKey(String key) {
-        return patternKey.matcher(key).matches();
+    public ValidationResult validatePair(String key, String value) {
+        ValidationResult validationResult = new ValidationResult(patternKey.matcher(key).matches(), patternValue.matcher(value).matches());
+        return validationResult;
     }
-
-    @Override
-    public boolean isValidateValue(String value) {
-        return patternValue.matcher(value).matches();
-    }
-
-
 }

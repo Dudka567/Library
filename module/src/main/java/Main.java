@@ -21,7 +21,6 @@ public class Main {
         listAction.put(4, new ActionSearchPair());
         listAction.put(5, new ActionExitLibrary());
 
-
         ConsoleApp consoleApp = new ConsoleApp(listDictionaries, listAction);
         consoleApp.work();
 
