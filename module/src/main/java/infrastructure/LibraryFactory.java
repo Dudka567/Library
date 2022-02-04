@@ -24,7 +24,7 @@ public class LibraryFactory {
         Validator tempValidator;
         FilesStorage tempStorage;
 
-        Map<String, Library> listLibraries = new LinkedHashMap<>();
+        Map<String, Library> libraries = new LinkedHashMap<>();
         for (Config.DictionaryConfig dictionaryConfig : config.readConfig()) {
             tempStorage = new FilesStorage(dictionaryConfig.getTypeDictionary());
             tempValidator = new LibraryValidator(
@@ -37,9 +37,9 @@ public class LibraryFactory {
                     tempStorage);
 
 
-            listLibraries.put(dictionaryConfig.getTypeDictionary(), tempFileLibrary);
+            libraries.put(dictionaryConfig.getNameDictionary(), tempFileLibrary);
         }
-        return listLibraries;
+        return libraries;
 
     }
 

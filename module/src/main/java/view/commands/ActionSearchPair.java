@@ -3,19 +3,36 @@ package src.main.java.view.commands;
 import src.main.java.view.menu.ConsoleConstants;
 import src.main.java.controller.Library;
 
-public class ActionSearchPair implements Action {
-    private final String INFO = "4.Search records by key\n";
+import java.util.Map;
 
-    @Override
-    public String getINFO() {
-        return INFO;
+public class ActionSearchPair implements Action {
+    private final String TITLE = ".Search records by key\n";
+    private Integer position;
+    private Map<String, Library> dictionaries;
+
+    public ActionSearchPair(Map<String, Library> dictionaries) {
+        this.dictionaries = dictionaries;
     }
 
     @Override
-    public void execute(Object actionObject) {
-        Library library = (Library) actionObject;
+    public String getTitle() {
+        return TITLE;
+    }
+
+    @Override
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    @Override
+    public Integer getPosition() {
+        return position;
+    }
+
+    @Override
+    public void execute(String typeLibrary) {
         System.out.print(ConsoleConstants.INPUT_KEY);
         String tempKey = ConsoleConstants.user.next();
-        System.out.println(library.searchPair(tempKey));
+        System.out.println(dictionaries.get(typeLibrary).searchPair(tempKey));
     }
 }

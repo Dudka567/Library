@@ -14,9 +14,9 @@ import java.util.Map;
 public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
     private static final String EXPANSION = ".txt";
-    private static final String SOURCE_DIRECTORY = "src/main/resources";
+    private static final String SOURCE_DIRECTORY = "module/src/main/resources";
     private static final String NAME_FILE = "LibraryType";
-    private static final String PATTERN_NAME_LIBRARY_FILE = "src/main/resources/LibraryType";
+    private static final String PATTERN_NAME_LIBRARY_FILE = "module/src/main/resources/LibraryType";
 
     private File dirLibrary;
 
@@ -60,13 +60,13 @@ public class FilesStorage implements Storage {
     public String searchStorage(String expectedNameFile) {
         try {
             File dir = new File(SOURCE_DIRECTORY);
-            List<File> listFilesInDirectory = new ArrayList<>();
+            List<File> filesInDirectory = new ArrayList<>();
             for (File file : dir.listFiles()) {
                 if (file.isFile())
-                    listFilesInDirectory.add(file);
+                    filesInDirectory.add(file);
             }
 
-            for (File file : listFilesInDirectory) {
+            for (File file : filesInDirectory) {
                 if (isCheckedStorage(file.getName(), expectedNameFile)) {
                     return file.getPath();
                 }

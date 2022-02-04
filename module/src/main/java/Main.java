@@ -6,23 +6,26 @@ import src.main.java.controller.Library;
 import src.main.java.infrastructure.LibraryFactory;
 import src.main.java.view.commands.*;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
         LibraryFactory libraryFactory = new LibraryFactory(new Config());
-        Map<String, Library> listDictionaries = libraryFactory.createLibraries();
-        Map<Integer, Action> listAction = new HashMap<>();
+        Map<String, Library> dictionaries = libraryFactory.createLibraries();
 
-        listAction.put(1, new ActionReadPairs());
-        listAction.put(2, new ActionAddPairs());
-        listAction.put(3, new ActionDeletePairs());
-        listAction.put(4, new ActionSearchPair());
-        listAction.put(5, new ActionExitLibrary());
+        List<Action> actions = new ArrayList<>();
+        List<String> libraries = new ArrayList<>(dictionaries.keySet());
+
+        actions.add(new ActionReadPairs(dictionaries));
+        actions.add(new ActionAddPairs(dictionaries));
+        actions.add(new ActionDeletePairs(dictionaries));
+        actions.add(new ActionSearchPair(dictionaries));
+        actions.add(new ActionExitLibrary(dictionaries));
 
 
-        ConsoleApp consoleApp = new ConsoleApp(listDictionaries, listAction);
+        ConsoleApp consoleApp = new ConsoleApp(libraries, actions);
         consoleApp.work();
 
     }

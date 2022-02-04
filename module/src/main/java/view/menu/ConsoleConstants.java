@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class ConsoleConstants {
     public static final Scanner user = new Scanner(System.in);
-    public static final String ASK_ABOUT_TYPE_DICTIONARY = "What type of dictionary do you want to work with?";
+    public static final String ASK_ABOUT_TYPE_DICTIONARY = "What type of dictionary do you want to work with?\n";
     public static final String ASK_ABOUT_OPERATION_DICTIONARY = "What kind of dictionary operation do you want to perform?\n";
     public static final String CHAR_FOR_NEXT_LINE = "\n";
     public static final String EXIT = "Enter: exit - to close the application";

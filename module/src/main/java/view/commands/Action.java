@@ -1,7 +1,11 @@
 package src.main.java.view.commands;
 
 public interface Action {
-    String getINFO();
+    String getTitle();
 
-    void execute(Object actionObject);
+    void setPosition(Integer position);
+
+    Integer getPosition();
+
+    void execute(String typeLibrary);
 }
