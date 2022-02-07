@@ -1,10 +1,8 @@
-package src.test.java;
-
 import org.junit.*;
-import src.main.java.controller.Library;
-import src.main.java.infrastructure.Config;
-import src.main.java.infrastructure.LibraryFactory;
-import src.main.java.model.*;
+import controller.Library;
+import infrastructure.Config;
+import infrastructure.LibraryFactory;
+import model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +13,7 @@ import java.util.Map;
 public class LibraryTest {
     private static final String TYPE_LIBRARY_ONE = "1";
     private static final String TYPE_LIBRARY_THIRD = "3";
-    private static final String PATH_TESTLIBRARY = "src/test/resources/LibraryType3.txt";
+    private static final String PATH_TESTLIBRARY = "../resources/LibraryType3.txt";
     private static final String CORRECT_KEY = "cars";
     private static final String CORRECT_VALUE = "карс";
     private static final String INCORRECT_KEY = "carsz";

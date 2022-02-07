@@ -1,10 +1,10 @@
-package src.main.java.infrastructure;
+package infrastructure;
 
-import src.main.java.controller.validators.LibraryValidator;
-import src.main.java.controller.FileLibrary;
-import src.main.java.controller.validators.Validator;
-import src.main.java.model.FilesStorage;
-import src.main.java.controller.Library;
+import controller.validators.LibraryValidator;
+import controller.FileLibrary;
+import controller.validators.Validator;
+import model.FilesStorage;
+import controller.Library;
 
 
 import java.util.LinkedHashMap;

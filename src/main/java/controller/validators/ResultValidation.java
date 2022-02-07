@@ -1,4 +1,4 @@
-package src.main.java.controller.validators;
+package controller.validators;
 
 public class ResultValidation {
     private static final String INCORRECT_KEY_AND_VALUE_FORMAT = "Incorrect key and value format.";

@@ -1,4 +1,4 @@
-package src.main.java.view.commands;
+package view.commands;
 
 public interface Action {
     String getINFO();

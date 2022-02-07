@@ -1,6 +1,4 @@
-package src.main.java.controller;
-
-import src.main.java.model.Storage;
+package controller;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package src.main.java.model;
+package model;
 
 import java.util.Map;
 

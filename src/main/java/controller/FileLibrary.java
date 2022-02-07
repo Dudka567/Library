@@ -1,8 +1,8 @@
-package src.main.java.controller;
+package controller;
 
-import src.main.java.controller.validators.ResultValidation;
-import src.main.java.controller.validators.Validator;
-import src.main.java.model.Storage;
+import controller.validators.ResultValidation;
+import controller.validators.Validator;
+import model.Storage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

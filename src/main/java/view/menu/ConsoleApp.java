@@ -1,7 +1,7 @@
-package src.main.java.view.menu;
+package view.menu;
 
-import src.main.java.controller.Library;
-import src.main.java.view.commands.Action;
+import controller.Library;
+import view.commands.Action;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
-package src.main.java.view.commands;
+package view.commands;
 
-import src.main.java.controller.Library;
+import controller.Library;
 
 public class ActionExitLibrary implements Action {
     private final String INFO = "5.Finish working with this dictionary\n";

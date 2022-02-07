@@ -1,7 +1,7 @@
-package src.main.java.view.commands;
+package view.commands;
 
-import src.main.java.view.menu.ConsoleConstants;
-import src.main.java.controller.Library;
+import view.menu.ConsoleConstants;
+import controller.Library;
 
 public class ActionAddPairs implements Action {
     private final String INFO = "2.Add an entry\n";

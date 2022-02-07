@@ -1,4 +1,4 @@
-package src.main.java.controller.validators;
+package controller.validators;
 
 import java.util.regex.Pattern;
 
