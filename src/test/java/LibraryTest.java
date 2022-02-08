@@ -37,7 +37,7 @@ public class LibraryTest {
 
         String actrual = storage.searchStorage(TYPE_LIBRARY_THIRD);
 
-        String expected = "src/test" + new File(PATH_TESTLIBRARY).getPath();
+        String expected = new File(PATH_TESTLIBRARY).getPath();
         Assert.assertEquals(expected, actrual);
     }
 
@@ -52,7 +52,7 @@ public class LibraryTest {
         String actrual = storage.searchStorage(TYPE_LIBRARY_THIRD);
 
 
-        String expected = "src\\main" + new File(PATH_TESTLIBRARY).getPath();
+        String expected = new File(PATH_TESTLIBRARY).getPath();
         Assert.assertEquals(expected, actrual);
 
     }
