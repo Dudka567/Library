@@ -1,8 +1,7 @@
-set DIR_PROJECT=module/src/test/classes
+set DIR_PROJECT=src/test/classes
 del /s %DIR_BIN%\*.class >NUL
-cd src/test/javaFiles
-javac -d module/src/test/classes -classpath module\src\test\resources\junit-4.13.1.jar -sourcepath module module/src/test/java/LibraryTest.java
-echo D|xcopy module\src\test\resources module\src\test\classes\src\test\resources /e
-cd module/src/test/classes
-java -classpath module\src\test\resources\junit-4.13.1.jar; src.test.java.LibraryTest
+javac -d src/test/classes/java -classpath src\test\resources\junit-4.13.1.jar -sourcepath src/main/java src/test/java/LibraryTest.java
+echo D|xcopy src\test\resources src\test\classes\resources /e
+cd src/test/classes/java
+java -classpath ..\resources\junit-4.13.1.jar; LibraryTest
 pause
