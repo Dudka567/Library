@@ -7,6 +7,9 @@ public interface Storage {
 
     void writeStorage(Map<String, String> library);
 
-    String searchStorage(String expectedNameFile);
+    String searchStorage(String expectedNameStorage);
 
+    String createStorage(String expectedNameStorage);
+
+    String createNameStorage();
 }

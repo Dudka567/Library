@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class LibraryFactory {
     private Config config;
+    private final Integer COUNTER_LIBRARY = 1;
 
     public LibraryFactory(Config config) {
         this.config = config;
@@ -20,24 +21,25 @@ public class LibraryFactory {
 
 
     public Map<String, Library> createLibraries() {
+        Integer counter = COUNTER_LIBRARY;
         FileLibrary tempFileLibrary;
         Validator tempValidator;
         FilesStorage tempStorage;
 
         Map<String, Library> listLibraries = new LinkedHashMap<>();
         for (Config.DictionaryConfig dictionaryConfig : config.readConfig()) {
-            tempStorage = new FilesStorage(dictionaryConfig.getTypeDictionary());
+            tempStorage = new FilesStorage(dictionaryConfig.getPathDictionary());
             tempValidator = new LibraryValidator(
                     dictionaryConfig.getPatternKey(),
                     dictionaryConfig.getPatternValue());
             tempFileLibrary = new FileLibrary(
                     tempValidator,
                     dictionaryConfig.getNameDictionary(),
-                    dictionaryConfig.getTypeDictionary(),
+                    dictionaryConfig.getPathDictionary(),
                     tempStorage);
 
-
-            listLibraries.put(dictionaryConfig.getTypeDictionary(), tempFileLibrary);
+            listLibraries.put(String.valueOf(counter), tempFileLibrary);
+            counter++;
         }
         return listLibraries;
 
