@@ -34,7 +34,7 @@ public class LibraryTest {
 
     @Test
     public void testSearchLibrary_TypeOne_InDirectory()  {
-        Storage storage = new FilesStorage(TYPE_LIBRARY_ONE);
+        FilesStorage storage = new FilesStorage(TYPE_LIBRARY_ONE);
 
         String actrual = storage.searchStorage(TYPE_LIBRARY_ONE);
 
@@ -44,7 +44,7 @@ public class LibraryTest {
 
     @Test
     public void testCreateLibrary_TypeThird_InDirectory(){
-        Storage storage = new FilesStorage();
+        FilesStorage storage = new FilesStorage();
         String actrual = storage.searchStorage(TYPE_LIBRARY_THIRD);
 
         String expected = new File(PATH_TESTLIBRARY_ONE).getPath();
