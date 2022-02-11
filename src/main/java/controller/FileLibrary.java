@@ -18,12 +18,10 @@ public class FileLibrary implements Library {
     private Map<String, String> localDictionary;
 
     private String nameLibrary;
-    private String pathLibrary;
 
-    public FileLibrary(Validator mainValidator, String nameLibrary, String pathLibrary, Storage mainLibraryStorage) {
+    public FileLibrary(Validator mainValidator, String nameLibrary, Storage mainLibraryStorage) {
         this.mainValidator = mainValidator;
         this.nameLibrary = nameLibrary;
-        this.pathLibrary = pathLibrary;
         this.mainLibraryStorage = mainLibraryStorage;
         localDictionary = new LinkedHashMap<>();
         mainLibraryStorage.readStorage(getLocalDictionary());
