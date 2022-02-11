@@ -7,18 +7,20 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
-    private static final String EXPANSION = ".txt";
-    private static final String SOURCE_DIRECTORY = "../resources";
-    private static final String NAME_FILE = "LibraryType";
-    private static final String PATTERN_NAME_LIBRARY_FILE = "../resources/LibraryType";
+    private static final String EXPANSION = "temp.txt";
+    private static final String PATTERN_NAME_LIBRARY_FILE = "../resources/";
 
     private File dirLibrary;
+
+    public FilesStorage(){}
 
     public FilesStorage(String typeLibrary) {
         this.dirLibrary = new File(searchStorage(typeLibrary));
@@ -57,31 +59,44 @@ public class FilesStorage implements Storage {
     }
 
     @Override
-    public String searchStorage(String expectedNameFile) {
-        try {
-            File dir = new File(SOURCE_DIRECTORY);
-            List<File> listFilesInDirectory = new ArrayList<>();
-            for (File file : dir.listFiles()) {
-                if (file.isFile())
-                    listFilesInDirectory.add(file);
-            }
+    public String searchStorage(String expectedNameStorage) {
+        File dir = new File(expectedNameStorage);
+        if (dir.exists() && !dir.isDirectory()) {
+            return dir.getPath();
+        } else {
+            return createStorage(createNameStorage());
+        }
+    }
 
-            for (File file : listFilesInDirectory) {
-                if (isCheckedStorage(file.getName(), expectedNameFile)) {
-                    return file.getPath();
+    @Override
+    public String createNameStorage() {
+
+        Integer counterName = 0;
+        String resultName = "";
+        File dir = new File(PATTERN_NAME_LIBRARY_FILE);
+        for (File file : dir.listFiles()) {
+            if (file.isFile()) {
+                String expectedName = counterName + EXPANSION;
+                if (file.getName().equals(expectedName)) {
+                    counterName++;
+                } else {
+                    resultName = PATTERN_NAME_LIBRARY_FILE + expectedName;
+                    break;
                 }
             }
-            File file = new File(PATTERN_NAME_LIBRARY_FILE + expectedNameFile + EXPANSION);
-            try (FileWriter writer = new FileWriter(file)) {
-                return file.getPath();
-            }
+        }
+        return resultName;
+    }
+
+    @Override
+    public String createStorage(String expectedNameStorage) {
+        File dirNewFile = new File(expectedNameStorage);
+        try (FileWriter writer = new FileWriter(dirNewFile)) {
+            return dirNewFile.getPath();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
+        return dirNewFile.getPath();
     }
 
-    public boolean isCheckedStorage(String fileName, String expectedNameFile) {
-        return fileName.equals(NAME_FILE + expectedNameFile + EXPANSION);
-    }
 }

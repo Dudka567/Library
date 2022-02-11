@@ -43,21 +43,21 @@ public class Config {
             return nameDictionary;
         }
 
-        public String getTypeDictionary() {
-            return typeDictionary;
+        public String getPathDictionary() {
+            return pathDictionary;
         }
 
         private String patternKey;
         private String patternValue;
         private String nameDictionary;
-        private String typeDictionary;
+        private String pathDictionary;
 
         public DictionaryConfig(String configLine) {
             String[] tempRead = configLine.split(REGEX_CHAR);
             this.patternKey = tempRead[0];
             this.patternValue = tempRead[1];
             this.nameDictionary = tempRead[2];
-            this.typeDictionary = tempRead[3];
+            this.pathDictionary = tempRead[3];
         }
     }
 }
