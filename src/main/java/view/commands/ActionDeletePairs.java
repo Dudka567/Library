@@ -3,18 +3,30 @@ package view.commands;
 import view.menu.ConsoleConstants;
 import controller.Library;
 
-public class ActionDeletePairs implements Action {
-    private final String INFO = "3.Delete an entry\n";
+import java.util.List;
+import java.util.Map;
 
-    @Override
-    public String getINFO() {
-        return INFO;
+public class ActionDeletePairs extends ActionWithPairs implements Action {
+    private final String TITLE = ".Delete an entry\n";
+
+    public ActionDeletePairs(List<Library> dictionaries) {
+        super(dictionaries);
     }
 
-    public void execute(Object actionObject) {
-        Library library = (Library) actionObject;
+    @Override
+    public String getTitle() {
+        return super.position + TITLE;
+    }
+
+    @Override
+    public void setPosition(Integer position) {
+        super.setPosition(position);
+    }
+
+    @Override
+    public void execute(String typeLibrary) {
         System.out.print(ConsoleConstants.INPUT_KEY);
         String tempKey = ConsoleConstants.user.next();
-        System.out.println(library.deletePair(tempKey));
+        System.out.println(super.dictionaries.get(typeLibrary).deletePair(tempKey));
     }
 }

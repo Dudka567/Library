@@ -3,20 +3,31 @@ package view.commands;
 import view.menu.ConsoleConstants;
 import controller.Library;
 
-public class ActionReadPairs implements Action {
-    private final String INFO = "1.Show the contents of the dictionary\n";
+import java.util.List;
+import java.util.Map;
 
-    @Override
-    public String getINFO() {
-        return INFO;
+public class ActionReadPairs extends ActionWithPairs implements Action {
+    private final String TITLE = ".Show the contents of the dictionary\n";
+
+    public ActionReadPairs(List<Library> dictionaries) {
+        super(dictionaries);
     }
 
     @Override
-    public void execute(Object actionObject) {
-        Library library = (Library) actionObject;
-        library.readPairs();
-        for (String lineKey : library.getLocalDictionary().keySet()) {
-            System.out.println(ConsoleConstants.KEY + lineKey + ConsoleConstants.CHAR_SPACE + ConsoleConstants.VALUE + library.getLocalDictionary().get(lineKey));
+    public String getTitle() {
+        return super.position + TITLE;
+    }
+
+    @Override
+    public void setPosition(Integer position) {
+        super.setPosition(position);
+    }
+
+    @Override
+    public void execute(String typeLibrary) {
+        dictionaries.get(typeLibrary).readPairs();
+        for (String lineKey : dictionaries.get(typeLibrary).getLocalDictionary().keySet()) {
+            System.out.println(ConsoleConstants.KEY + lineKey + ConsoleConstants.CHAR_SPACE + ConsoleConstants.VALUE + dictionaries.get(typeLibrary).getLocalDictionary().get(lineKey));
         }
     }
 }

@@ -12,7 +12,7 @@ public class FileLibrary implements Library {
     private static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
     private static final String PAIR_SEARCHED = "Value: ";
 
-    private Storage mainLibraryStorage;
+    private Storage mainLibraryStorage; 
     private Validator mainValidator;
 
     private Map<String, String> localDictionary;

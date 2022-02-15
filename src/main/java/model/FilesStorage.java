@@ -7,16 +7,12 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
     private static final String EXPANSION = "temp.txt";
-    private static final String PATTERN_NAME_LIBRARY_FILE = "../resources/";
+    private static final String PATTERN_NAME_LIBRARY_FILE = "src/main/resources/";
 
     private File dirLibrary;
 
