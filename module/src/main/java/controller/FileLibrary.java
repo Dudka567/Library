@@ -56,7 +56,7 @@ public class FileLibrary implements Library {
     @Override
     public String searchPair(String key) {
         mainLibraryStorage.readStorage(getLocalDictionary());
-        return localDictionary.get(key).equals("null") ? PAIR_MISSING : PAIR_SEARCHED + localDictionary.get(key);
+        return (localDictionary.get(key) != null && !localDictionary.get(key).isEmpty()) ? PAIR_SEARCHED + localDictionary.get(key) : PAIR_MISSING;
     }
 
     @Override
