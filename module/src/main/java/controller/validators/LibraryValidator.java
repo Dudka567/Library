@@ -6,7 +6,6 @@ public class LibraryValidator implements Validator {
     private static final String INCORRECT_KEY_AND_VALUE_FORMAT = "Incorrect key and value format.";
     private static final String INCORRECT_KEY_FORMAT = "Incorrect key format.";
     private static final String INCORRECT_VALUE_FORMAT = "Incorrect value format.";
-    private static final String PAIR_ADDED = "The pair has been added to the dictionary.";
     private Pattern patternKey;
     private Pattern patternValue;
 
@@ -17,16 +16,18 @@ public class LibraryValidator implements Validator {
 
     @Override
     public ValidationResult validatePair(String key, String value) {
-        boolean boolResultValidation = false;
         ValidationResult validationResult;
-        if (boolResultValidation = (patternKey.matcher(key).matches() && patternValue.matcher(value).matches())) {
-            validationResult = new ValidationResult(PAIR_ADDED, boolResultValidation);
-        } else if (boolResultValidation = (!patternKey.matcher(key).matches() && patternValue.matcher(value).matches())) {
-            validationResult = new ValidationResult(INCORRECT_KEY_AND_VALUE_FORMAT, boolResultValidation);
-        } else if (boolResultValidation = (!patternKey.matcher(key).matches())) {
-            validationResult = new ValidationResult(INCORRECT_KEY_FORMAT, boolResultValidation);
+        boolean isValidKey = patternKey.matcher(key).matches();
+        boolean isValidValue = patternValue.matcher(value).matches();
+
+        if (isValidKey && isValidValue) {
+            validationResult = new ValidationResult(true);
+        } else if (!isValidKey && isValidValue) {
+            validationResult = new ValidationResult(INCORRECT_KEY_AND_VALUE_FORMAT, false);
+        } else if (!isValidKey) {
+            validationResult = new ValidationResult(INCORRECT_KEY_FORMAT, false);
         } else {
-            validationResult = new ValidationResult(INCORRECT_VALUE_FORMAT, boolResultValidation);
+            validationResult = new ValidationResult(INCORRECT_VALUE_FORMAT, false);
         }
         return validationResult;
     }

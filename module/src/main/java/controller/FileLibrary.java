@@ -10,6 +10,7 @@ import java.util.Map;
 public class FileLibrary implements Library {
     private static final String PAIR_MISSING = "The pair is missing from the dictionary.";
     private static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
+    private static final String PAIR_ADDED = "The pair has been added to the dictionary.";
     private static final String PAIR_SEARCHED = "Value: ";
 
     private Storage mainLibraryStorage;
@@ -66,6 +67,7 @@ public class FileLibrary implements Library {
         if (localResultValidation.getIsValidationResult()) {
             localDictionary.put(key, value);
             mainLibraryStorage.writeStorage(localDictionary);
+            return PAIR_ADDED;
         }
 
         return localResultValidation.getStringValidationResult();

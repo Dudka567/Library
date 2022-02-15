@@ -17,4 +17,7 @@ public class ValidationResult {
         this.isValidationResult = isValidationResult;
     }
 
+    public ValidationResult(Boolean isValidationResult) {
+        this.isValidationResult = isValidationResult;
+    }
 }
