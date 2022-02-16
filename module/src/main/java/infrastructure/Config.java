@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Config {
-    private static final String CONFIG_DIR = "src/main/resources/LibraryCollection.txt";
+    private static final String CONFIG_DIR = "module/src/main/resources/LibraryCollection.txt";
     private static final String REGEX_CHAR = ",";
 
     public List<DictionaryConfig> readConfig() {
