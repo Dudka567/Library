@@ -75,6 +75,6 @@ public class FileLibrary implements Library {
             return PAIR_ADDED;
         }
 
-        return localResultValidation.getStringValidationResult();
+        return localResultValidation.getValidationResult();
     }
 }

@@ -3,18 +3,18 @@ package src.main.java.controller.validators;
 import java.util.List;
 
 public class ValidationResult {
-    private List<String> stringValidationResult;
+    private List<String> errorsValidation;
 
-    public String getStringValidationResult() {
-        return String.join(", ", stringValidationResult);
+    public String getValidationResult() {
+        return String.join(", ", errorsValidation);
     }
 
     public Integer getNumberErrors() {
-        return stringValidationResult.size();
+        return errorsValidation.size();
     }
 
-    public ValidationResult(List<String> stringValidationResult) {
-        this.stringValidationResult = stringValidationResult;
+    public ValidationResult(List<String> errorsValidation) {
+        this.errorsValidation = errorsValidation;
     }
 
 }
