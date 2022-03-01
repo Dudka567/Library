@@ -1,3 +1,4 @@
+import infrastructure.TypesLibraryFactory;
 import view.menu.ConsoleApp;
 import infrastructure.Config;
 import controller.Library;
@@ -10,8 +11,11 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         LibraryFactory libraryFactory = new LibraryFactory(new Config());
-
         List<Library> dictionaries = libraryFactory.createLibraries();
+
+        TypesLibraryFactory typesFactory = new TypesLibraryFactory(dictionaries);
+        List<String> typesDictionaries = typesFactory.createTypesLibrary();
+
         List<Action> actions = new ArrayList<>();
 
         actions.add(new ActionReadPairs(dictionaries));
@@ -21,16 +25,9 @@ public class Main {
         actions.add(new ActionExitLibrary(dictionaries));
 
 
-        ConsoleApp consoleApp = new ConsoleApp(getNamesDictionaries(dictionaries), actions);
+        ConsoleApp consoleApp = new ConsoleApp(typesDictionaries, actions);
         consoleApp.work();
 
     }
 
-    public static List<String> getNamesDictionaries(List<Library> dictionaries) {
-        List<String> namesDictionaries = new ArrayList<>();
-        for (Library dictionary : dictionaries) {
-            namesDictionaries.add(dictionary.getNameLibrary());
-        }
-        return namesDictionaries;
-    }
 }
