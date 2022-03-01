@@ -1,9 +1,12 @@
 package src.main.java.controller.validators;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class LibraryValidator implements Validator {
-    private static final String[] errorMessages = {"Incorrect key format.", "Incorrect value format."};
+    private static final String INCORRECT_KEY_FORMAT = "Incorrect key format";
+    private static final String INCORRECT_VALUE_FORMAT = "Incorrect value format";
     private Pattern patternKey;
     private Pattern patternValue;
 
@@ -15,23 +18,19 @@ public class LibraryValidator implements Validator {
     @Override
     public ValidationResult validatePair(String key, String value) {
         ValidationResult validationResult;
+        List<String> errorsMessages = new ArrayList<>();
+
         boolean isValidKey = patternKey.matcher(key).matches();
         boolean isValidValue = patternValue.matcher(value).matches();
 
-        boolean[] resultsValidation = {isValidKey, isValidValue};
-        String errorsValidation = "";
-        boolean isSuccessfully = true;
-
-        for(int countElem = 0; countElem < resultsValidation.length; countElem++)
-        {
-            if(!resultsValidation[countElem])
-            {
-                errorsValidation += errorMessages[countElem];
-                isSuccessfully = false;
-            }
+        if (!isValidKey) {
+            errorsMessages.add(INCORRECT_KEY_FORMAT);
+        }
+        if (!isValidValue) {
+            errorsMessages.add(INCORRECT_VALUE_FORMAT);
         }
 
-        validationResult = new ValidationResult(errorsValidation, isSuccessfully);
+        validationResult = new ValidationResult(errorsMessages);
 
         return validationResult;
     }

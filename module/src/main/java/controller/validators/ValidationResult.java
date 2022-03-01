@@ -1,20 +1,20 @@
 package src.main.java.controller.validators;
 
+import java.util.List;
+
 public class ValidationResult {
-    private String stringValidationResult;
-    private Boolean isValidationResult;
+    private List<String> stringValidationResult;
 
     public String getStringValidationResult() {
-        return stringValidationResult;
+        return String.join(", ", stringValidationResult);
     }
 
-    public Boolean getIsValidationResult() {
-        return isValidationResult;
+    public Integer getNumberErrors() {
+        return stringValidationResult.size();
     }
 
-    public ValidationResult(String stringValidationResult, Boolean isValidationResult) {
+    public ValidationResult(List<String> stringValidationResult) {
         this.stringValidationResult = stringValidationResult;
-        this.isValidationResult = isValidationResult;
     }
 
 }

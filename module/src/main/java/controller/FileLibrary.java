@@ -69,7 +69,7 @@ public class FileLibrary implements Library {
         mainLibraryStorage.readStorage(getLocalDictionary());
         ValidationResult localResultValidation = mainValidator.validatePair(key, value);
 
-        if (localResultValidation.getIsValidationResult()) {
+        if (localResultValidation.getNumberErrors() == 0) {
             localDictionary.put(key, value);
             mainLibraryStorage.writeStorage(localDictionary);
             return PAIR_ADDED;
