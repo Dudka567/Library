@@ -59,8 +59,7 @@ public class FileLibrary implements Library {
         return checkPair(key);
     }
 
-    private String checkPair(String key)
-    {
+    private String checkPair(String key) {
         return (localDictionary.get(key) != null && !localDictionary.get(key).isEmpty()) ? PAIR_SEARCHED + localDictionary.get(key) : PAIR_MISSING;
     }
 
@@ -69,7 +68,7 @@ public class FileLibrary implements Library {
         mainLibraryStorage.readStorage(getLocalDictionary());
         ValidationResult localResultValidation = mainValidator.validatePair(key, value);
 
-        if (localResultValidation.getNumberErrors() == 0) {
+        if (localResultValidation.isValid()) {
             localDictionary.put(key, value);
             mainLibraryStorage.writeStorage(localDictionary);
             return PAIR_ADDED;

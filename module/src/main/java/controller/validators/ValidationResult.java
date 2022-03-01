@@ -9,8 +9,12 @@ public class ValidationResult {
         return String.join(", ", errorsValidation);
     }
 
-    public Integer getNumberErrors() {
-        return errorsValidation.size();
+    public boolean isValid() {
+        if (errorsValidation.size() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public ValidationResult(List<String> errorsValidation) {
