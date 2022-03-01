@@ -18,6 +18,7 @@ public class ActionAddPairs implements Action {
         String tempKey = ConsoleConstants.user.next();
         System.out.print(ConsoleConstants.INPUT_VALUE);
         String tempValue = ConsoleConstants.user.next();
-        System.out.println(library.addPair(tempKey, tempValue));
+        String resultAction = String.join(", ",library.addPair(tempKey, tempValue));
+        System.out.println(resultAction);
     }
 }

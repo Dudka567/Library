@@ -5,16 +5,12 @@ import java.util.List;
 public class ValidationResult {
     private List<String> errorsValidation;
 
-    public String getValidationResult() {
-        return String.join(", ", errorsValidation);
+    public List<String> getErrorsValidation() {
+        return errorsValidation;
     }
 
     public boolean isValid() {
-        if (errorsValidation.size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+       return getErrorsValidation().isEmpty();
     }
 
     public ValidationResult(List<String> errorsValidation) {

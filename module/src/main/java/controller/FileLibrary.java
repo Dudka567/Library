@@ -4,7 +4,9 @@ import src.main.java.controller.validators.ValidationResult;
 import src.main.java.controller.validators.Validator;
 import src.main.java.model.Storage;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileLibrary implements Library {
@@ -64,16 +66,19 @@ public class FileLibrary implements Library {
     }
 
     @Override
-    public String addPair(String key, String value) {
+    public List<String> addPair(String key, String value) {
         mainLibraryStorage.readStorage(getLocalDictionary());
         ValidationResult localResultValidation = mainValidator.validatePair(key, value);
+        List<String> resultAddedPairs = new ArrayList<>();
 
         if (localResultValidation.isValid()) {
             localDictionary.put(key, value);
             mainLibraryStorage.writeStorage(localDictionary);
-            return PAIR_ADDED;
+            resultAddedPairs.add(PAIR_ADDED);
+        } else {
+            resultAddedPairs = localResultValidation.getErrorsValidation();
         }
 
-        return localResultValidation.getValidationResult();
+        return resultAddedPairs;
     }
 }
