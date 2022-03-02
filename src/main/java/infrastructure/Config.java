@@ -32,19 +32,35 @@ public class Config {
     public class DictionaryConfig {
 
         public String getPatternKey() {
-            return patternKey;
+            if (patternKey == null || patternKey.isEmpty()) {
+                return new String();
+            } else {
+                return patternKey;
+            }
         }
 
         public String getPatternValue() {
-            return patternValue;
+            if (patternValue == null || patternValue.isEmpty()) {
+                return new String();
+            } else {
+                return patternValue;
+            }
         }
 
         public String getNameDictionary() {
-            return nameDictionary;
+            if (nameDictionary == null || nameDictionary.isEmpty()) {
+                return new String();
+            } else {
+                return nameDictionary;
+            }
         }
 
         public String getPathDictionary() {
-            return pathDictionary;
+            if (pathDictionary == null || pathDictionary.isEmpty()) {
+                return new String();
+            } else {
+                return pathDictionary;
+            }
         }
 
         private String patternKey;

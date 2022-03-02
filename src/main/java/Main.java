@@ -1,20 +1,17 @@
-import infrastructure.TypesLibraryFactory;
-import view.menu.ConsoleApp;
-import infrastructure.Config;
 import controller.Library;
+import infrastructure.Config;
 import infrastructure.LibraryFactory;
 import view.commands.*;
-
+import view.menu.ConsoleApp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
         LibraryFactory libraryFactory = new LibraryFactory(new Config());
         List<Library> dictionaries = libraryFactory.createLibraries();
-
-        TypesLibraryFactory typesFactory = new TypesLibraryFactory(dictionaries);
-        List<String> typesDictionaries = typesFactory.createTypesLibrary();
+        List<String> typesDictionaries = libraryFactory.createNamesDictionaries();
 
         List<Action> actions = new ArrayList<>();
 
@@ -27,7 +24,6 @@ public class Main {
 
         ConsoleApp consoleApp = new ConsoleApp(typesDictionaries, actions);
         consoleApp.work();
-
     }
 
 }

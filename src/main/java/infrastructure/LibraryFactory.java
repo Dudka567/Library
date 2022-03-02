@@ -1,12 +1,10 @@
 package infrastructure;
 
-import controller.validators.LibraryValidator;
 import controller.FileLibrary;
+import controller.validators.LibraryValidator;
 import controller.validators.Validator;
 import model.FilesStorage;
 import controller.Library;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +40,16 @@ public class LibraryFactory {
 
         return listLibraries;
 
+    }
+
+    public List<String> createNamesDictionaries() {
+        List<Config.DictionaryConfig> configData = config.readConfig();
+        List<String> namesDictionaries = new ArrayList<>();
+
+        for (Config.DictionaryConfig aboutDictionary : configData) {
+            namesDictionaries.add(aboutDictionary.getNameDictionary());
+        }
+        return namesDictionaries;
     }
 
 
