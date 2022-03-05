@@ -30,27 +30,42 @@ public class Config {
     }
 
     public class DictionaryConfig {
-
-        public String getPatternKey() {
-            return patternKey;
-        }
-
-        public String getPatternValue() {
-            return patternValue;
-        }
-
-        public String getNameDictionary() {
-            return nameDictionary;
-        }
-
-        public String getPathDictionary() {
-            return pathDictionary;
-        }
-
         private String patternKey;
         private String patternValue;
         private String nameDictionary;
         private String pathDictionary;
+	
+ 	public String getPatternKey() {
+            if(patternKey == null)
+            {
+                patternKey = "";
+            }
+            return patternKey;
+        }
+
+        public String getPatternValue() {
+            if(patternValue == null)
+            {
+                patternValue = "";
+            }
+            return patternValue;
+        }
+
+        public String getNameDictionary() {
+            if(nameDictionary == null)
+            {
+                nameDictionary = "";
+            }
+            return nameDictionary;
+        }
+
+        public String getPathDictionary() {
+            if(pathDictionary == null)
+            {
+                pathDictionary = "";
+            }
+            return pathDictionary;
+        }
 
         public DictionaryConfig(String configLine) {
             String[] tempRead = configLine.split(REGEX_CHAR);

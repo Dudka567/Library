@@ -1,22 +1,23 @@
 package controller;
 
-import controller.validators.ResultValidation;
+import controller.validators.ValidationResult;
 import controller.validators.Validator;
 import model.Storage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class FileLibrary implements Library {
     private static final String PAIR_MISSING = "The pair is missing from the dictionary.";
     private static final String PAIR_DELETED = "The pair has been deleted to the dictionary.";
+    private static final String PAIR_ADDED = "The pair has been added to the dictionary.";
     private static final String PAIR_SEARCHED = "Value: ";
 
     private Storage mainLibraryStorage;
     private Validator mainValidator;
-
     private Map<String, String> localDictionary;
-
     private String nameLibrary;
 
     public FileLibrary(Validator mainValidator, String nameLibrary, Storage mainLibraryStorage) {
@@ -52,22 +53,28 @@ public class FileLibrary implements Library {
 
     @Override
     public String searchPair(String key) {
-        mainLibraryStorage.readStorage(getLocalDictionary());
-        return localDictionary.get(key).equals("null") ? PAIR_MISSING : PAIR_SEARCHED + localDictionary.get(key);
+        return checkPair(key);
+    }
+
+    private String checkPair(String key) {
+        return (localDictionary.get(key) != null && !localDictionary.get(key).isEmpty()) ? PAIR_SEARCHED + localDictionary.get(key) : PAIR_MISSING;
     }
 
     @Override
-    public String addPair(String key, String value) {
+    public List<String> addPair(String key, String value) {
 
         mainLibraryStorage.readStorage(getLocalDictionary());
-        ResultValidation localResultValidation = new ResultValidation();
-        String answer = localResultValidation.getStringResultValidation(mainValidator.isValidateKey(key), mainValidator.isValidateValue(value));
+        ValidationResult localResultValidation = mainValidator.validatePair(key, value);
+        List<String> resultAddedPairs = new ArrayList<>();
 
-        if (localResultValidation.getBooleanResultValidation(mainValidator.isValidateKey(key), mainValidator.isValidateValue(value))) {
+        if (localResultValidation.isValid()) {
             localDictionary.put(key, value);
             mainLibraryStorage.writeStorage(localDictionary);
+            resultAddedPairs.add(PAIR_ADDED);
+        } else {
+            resultAddedPairs = localResultValidation.getErrorsValidation();
         }
 
-        return answer;
+        return resultAddedPairs;
     }
 }

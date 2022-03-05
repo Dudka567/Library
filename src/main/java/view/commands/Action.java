@@ -1,7 +1,9 @@
 package view.commands;
 
 public interface Action {
-    String getINFO();
+    String getTitle();
 
-    void execute(Object actionObject);
+    void setPosition(Integer position);
+
+    void execute(String typeLibrary);
 }

@@ -2,17 +2,29 @@ package view.commands;
 
 import controller.Library;
 
-public class ActionExitLibrary implements Action {
-    private final String INFO = "5.Finish working with this dictionary\n";
+import java.util.List;
+import java.util.Map;
+
+public class ActionExitLibrary extends ActionWithPairs implements Action {
+    private final String TITLE = ".Finish working with this dictionary\n";
     private final String END_WORK = "Finished work with ";
 
-    @Override
-    public String getINFO() {
-        return INFO;
+    public ActionExitLibrary(List<Library> dictionaries) {
+        super(dictionaries);
     }
 
-    public void execute(Object actionObject) {
-        Library library = (Library) actionObject;
-        System.out.println(END_WORK + library.getNameLibrary());
+    @Override
+    public String getTitle() {
+        return super.position + TITLE;
+    }
+
+    @Override
+    public void setPosition(Integer position) {
+        super.setPosition(position);
+    }
+
+    @Override
+    public void execute(String typeLibrary) {
+        System.out.println(END_WORK + super.dictionaries.get(typeLibrary).getNameLibrary());
     }
 }

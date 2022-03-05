@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import java.util.Map;
 
 public interface Library {
@@ -9,7 +10,7 @@ public interface Library {
 
     String searchPair(String key);
 
-    String addPair(String key, String value);
+    List<String> addPair(String key, String value);
 
     Map<String, String> getLocalDictionary();
 

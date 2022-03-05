@@ -7,11 +7,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
@@ -20,9 +16,11 @@ public class FilesStorage implements Storage {
 
     private File dirLibrary;
 
-    public FilesStorage(){}
-
     public FilesStorage(String typeLibrary) {
+        init(typeLibrary);
+    }
+
+    private void init(String typeLibrary) {
         this.dirLibrary = new File(searchStorage(typeLibrary));
     }
 
