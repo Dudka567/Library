@@ -1,12 +1,14 @@
 package view.commands;
 
 import controller.Library;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ActionWithPairs {
+    @Setter
     protected Integer position;
     protected Map<String, Library> dictionaries;
 

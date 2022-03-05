@@ -3,18 +3,16 @@ package infrastructure;
 import controller.FileLibrary;
 import controller.validators.LibraryValidator;
 import controller.validators.Validator;
+import lombok.AllArgsConstructor;
 import model.FilesStorage;
 import controller.Library;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 public class LibraryFactory {
     private Config config;
-
-    public LibraryFactory(Config config) {
-        this.config = config;
-    }
 
     public List<Library> createLibraries() {
         FileLibrary tempFileLibrary;

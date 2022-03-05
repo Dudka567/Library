@@ -1,5 +1,7 @@
 package model;
 
+import lombok.NoArgsConstructor;
+
 import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.Map;
 
+@NoArgsConstructor
 public class FilesStorage implements Storage {
     private final static String SPLIT_CHAR = "-";
     private static final String EXPANSION = "temp.txt";

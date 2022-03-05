@@ -1,5 +1,7 @@
 package infrastructure;
 
+import lombok.Getter;
+
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -30,42 +32,14 @@ public class Config {
     }
 
     public class DictionaryConfig {
+        @Getter
         private String patternKey;
+        @Getter
         private String patternValue;
+        @Getter
         private String nameDictionary;
+        @Getter
         private String pathDictionary;
-	
- 	public String getPatternKey() {
-            if(patternKey == null)
-            {
-                patternKey = "";
-            }
-            return patternKey;
-        }
-
-        public String getPatternValue() {
-            if(patternValue == null)
-            {
-                patternValue = "";
-            }
-            return patternValue;
-        }
-
-        public String getNameDictionary() {
-            if(nameDictionary == null)
-            {
-                nameDictionary = "";
-            }
-            return nameDictionary;
-        }
-
-        public String getPathDictionary() {
-            if(pathDictionary == null)
-            {
-                pathDictionary = "";
-            }
-            return pathDictionary;
-        }
 
         public DictionaryConfig(String configLine) {
             String[] tempRead = configLine.split(REGEX_CHAR);

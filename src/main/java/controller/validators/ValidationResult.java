@@ -1,23 +1,17 @@
 package controller.validators;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.List;
 
+@AllArgsConstructor
 public class ValidationResult {
+    @Getter
     private List<String> errorsValidation;
-
-    public List<String> getErrorsValidation() {
-        if (errorsValidation == null) {
-           errorsValidation = new ArrayList<>();
-        }
-            return errorsValidation;
-    }
 
     public boolean isValid() {
         return getErrorsValidation().isEmpty();
-    }
-
-    public ValidationResult(List<String> errorsValidation) {
-        this.errorsValidation = errorsValidation;
     }
 
 }

@@ -2,6 +2,7 @@ package controller;
 
 import controller.validators.ValidationResult;
 import controller.validators.Validator;
+import lombok.Getter;
 import model.Storage;
 
 import java.util.LinkedHashMap;
@@ -17,7 +18,9 @@ public class FileLibrary implements Library {
 
     private Storage mainLibraryStorage;
     private Validator mainValidator;
+    @Getter
     private Map<String, String> localDictionary;
+    @Getter
     private String nameLibrary;
 
     public FileLibrary(Validator mainValidator, String nameLibrary, Storage mainLibraryStorage) {
@@ -26,16 +29,6 @@ public class FileLibrary implements Library {
         this.mainLibraryStorage = mainLibraryStorage;
         localDictionary = new LinkedHashMap<>();
         mainLibraryStorage.readStorage(getLocalDictionary());
-    }
-
-    @Override
-    public Map<String, String> getLocalDictionary() {
-        return localDictionary;
-    }
-
-    @Override
-    public String getNameLibrary() {
-        return nameLibrary;
     }
 
     @Override
