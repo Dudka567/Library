@@ -1,5 +1,7 @@
 package infrastructure;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -7,9 +9,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Config {
-    private static final String CONFIG_DIR = "../resources/LibraryCollection.txt";
+    private static final String CONFIG_DIR = "src/main/resources/LibraryCollection.txt";
     private static final String REGEX_CHAR = ",";
+
+    public Config() {}
 
     public List<DictionaryConfig> readConfig() {
         try (
@@ -34,8 +39,8 @@ public class Config {
         private String patternValue;
         private String nameDictionary;
         private String pathDictionary;
-	
- 	public String getPatternKey() {
+
+        public String getPatternKey() {
             if(patternKey == null)
             {
                 patternKey = "";
