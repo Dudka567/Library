@@ -19,7 +19,7 @@ public class Config {
     public List<DictionaryConfig> readConfig() {
         try (
                 FileInputStream descriptorPosition = new FileInputStream(CONFIG_DIR);
-                BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
+                BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition))
         ) {
             List<DictionaryConfig> listDictionaries = new ArrayList<>();
 

@@ -15,10 +15,10 @@ public class FileLibrary implements Library {
     private static final String PAIR_ADDED = "The pair has been added to the dictionary.";
     private static final String PAIR_SEARCHED = "Value: ";
 
-    private Storage mainLibraryStorage;
-    private Validator mainValidator;
-    private Map<String, String> localDictionary;
-    private String nameLibrary;
+    private final Storage mainLibraryStorage;
+    private final Validator mainValidator;
+    private final Map<String, String> localDictionary;
+    private final String nameLibrary;
 
     public FileLibrary(Validator mainValidator, String nameLibrary, Storage mainLibraryStorage) {
         this.mainValidator = mainValidator;

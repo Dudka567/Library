@@ -3,7 +3,6 @@ package view.commands;
 import controller.Library;
 
 import java.util.List;
-import java.util.Map;
 
 public class ActionExitLibrary extends ActionWithPairs implements Action {
     private final String TITLE = ".Finish working with this dictionary\n";
