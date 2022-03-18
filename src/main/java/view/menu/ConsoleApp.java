@@ -55,9 +55,7 @@ public class ConsoleApp {
 
             } catch (NumberFormatException e) {
                 System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
-            } catch (NullPointerException e) {
-                System.out.println(ConsoleConstants.ERROR_NAME_FILE);
-            }
+            } 
         }
     }
 
@@ -84,9 +82,7 @@ public class ConsoleApp {
 
             } catch (NumberFormatException e) {
                 System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
-            } catch (NullPointerException e) {
-                System.out.println(ConsoleConstants.ERROR_FIND_PAIRS);
-            }
+            } 
         }
 
     }
