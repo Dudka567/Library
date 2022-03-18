@@ -6,7 +6,7 @@ import view.menu.ConsoleConstants;
 import java.util.List;
 
 public class ActionAddPairs extends ActionWithPairs implements Action {
-    private final String TITLE = ".Add an entry\n";
+    private static final String TITLE = ".Add an entry\n";
 
     public ActionAddPairs(List<Library> dictionaries) {
         super(dictionaries);

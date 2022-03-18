@@ -14,8 +14,6 @@ public class Config {
     private static final String CONFIG_DIR = "src/main/resources/LibraryCollection.txt";
     private static final String REGEX_CHAR = ",";
 
-    public Config() {}
-
     public List<DictionaryConfig> readConfig() {
         try (
                 FileInputStream descriptorPosition = new FileInputStream(CONFIG_DIR);
@@ -34,7 +32,7 @@ public class Config {
         return new ArrayList<>();
     }
 
-    public class DictionaryConfig {
+    public static class DictionaryConfig {
         private String patternKey;
         private String patternValue;
         private String nameDictionary;

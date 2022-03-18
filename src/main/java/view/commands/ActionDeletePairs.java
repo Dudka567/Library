@@ -6,7 +6,7 @@ import view.menu.ConsoleConstants;
 import java.util.List;
 
 public class ActionDeletePairs extends ActionWithPairs implements Action {
-    private final String TITLE = ".Delete an entry\n";
+    private static final String TITLE = ".Delete an entry\n";
 
     public ActionDeletePairs(List<Library> dictionaries) {
         super(dictionaries);

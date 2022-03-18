@@ -5,7 +5,7 @@ import view.commands.Action;
 import java.util.*;
 
 public class ConsoleApp {
-    private final Integer FIRST_MENU_ITEM_NUMBER = 1;
+    private static final Integer FIRST_MENU_ITEM_NUMBER = 1;
     private final Map<Integer, String> dictionariesTypes;
     private final Map<Integer, Action> actions;
 

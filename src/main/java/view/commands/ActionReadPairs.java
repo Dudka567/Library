@@ -6,7 +6,7 @@ import view.menu.ConsoleConstants;
 import java.util.List;
 
 public class ActionReadPairs extends ActionWithPairs implements Action {
-    private final String TITLE = ".Show the contents of the dictionary\n";
+    private static final String TITLE = ".Show the contents of the dictionary\n";
 
     public ActionReadPairs(List<Library> dictionaries) {
         super(dictionaries);
