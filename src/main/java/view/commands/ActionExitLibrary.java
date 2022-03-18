@@ -3,11 +3,10 @@ package view.commands;
 import controller.Library;
 
 import java.util.List;
-import java.util.Map;
 
 public class ActionExitLibrary extends ActionWithPairs implements Action {
-    private final String TITLE = ".Finish working with this dictionary\n";
-    private final String END_WORK = "Finished work with ";
+    private static final String TITLE = ".Finish working with this dictionary\n";
+    private static final String END_WORK = "Finished work with ";
 
     public ActionExitLibrary(List<Library> dictionaries) {
         super(dictionaries);

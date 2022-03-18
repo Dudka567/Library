@@ -5,9 +5,9 @@ import view.commands.Action;
 import java.util.*;
 
 public class ConsoleApp {
-    private final Integer FIRST_MENU_ITEM_NUMBER = 1;
-    private Map<Integer, String> dictionariesTypes;
-    private Map<Integer, Action> actions;
+    private static final Integer FIRST_MENU_ITEM_NUMBER = 1;
+    private final Map<Integer, String> dictionariesTypes;
+    private final Map<Integer, Action> actions;
 
     public ConsoleApp(List<String> dictionariesTypes, List<Action> actions) {
         this.dictionariesTypes = new HashMap<>();
@@ -32,10 +32,8 @@ public class ConsoleApp {
     }
 
     public void work() {
-
-        boolean exitMainMenu = false;
         String userSelect;
-        while (!exitMainMenu) {
+        while (true) {
             System.out.println(ConsoleConstants.ASK_ABOUT_TYPE_DICTIONARY);
 
             for (Integer menuCounter : dictionariesTypes.keySet()) {
@@ -48,7 +46,6 @@ public class ConsoleApp {
                 userSelect = ConsoleConstants.user.next();
 
                 if (userSelect.equals(ConsoleConstants.EXIT_LINE)) {
-                    exitMainMenu = true;
                     break;
                 } else if (dictionariesTypes.containsKey(Integer.parseInt(userSelect))) {
                     workWithLibrary(dictionariesTypes.get(Integer.parseInt(userSelect)));
@@ -58,16 +55,13 @@ public class ConsoleApp {
 
             } catch (NumberFormatException e) {
                 System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
-            } catch (NullPointerException e) {
-                System.out.println(ConsoleConstants.ERROR_NAME_FILE);
-            }
+            } 
         }
     }
 
     public void workWithLibrary(String typeLibrary) {
-        boolean exitLibraryMenu = false;
         int userSelectForDictionary;
-        while (!exitLibraryMenu) {
+        while (true) {
             System.out.print(ConsoleConstants.ASK_ABOUT_OPERATION_DICTIONARY);
 
             for (Integer actionCounter : actions.keySet()) {
@@ -81,16 +75,14 @@ public class ConsoleApp {
                 if (actions.get(userSelectForDictionary) == null) {
                     System.out.println(ConsoleConstants.NOT_SEARCH);
                 } else if (userSelectForDictionary == actions.size()) {
-                    exitLibraryMenu = true;
+                    break;
                 } else {
                     actions.get(userSelectForDictionary).execute(typeLibrary);
                 }
 
             } catch (NumberFormatException e) {
                 System.out.println(ConsoleConstants.ERROR_TYPE_DATA);
-            } catch (NullPointerException e) {
-                System.out.println(ConsoleConstants.ERROR_FIND_PAIRS);
-            }
+            } 
         }
 
     }

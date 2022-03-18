@@ -7,8 +7,8 @@ import java.util.List;
 public class LibraryValidator implements Validator {
     private static final String INCORRECT_KEY_FORMAT = "Incorrect key format";
     private static final String INCORRECT_VALUE_FORMAT = "Incorrect value format";
-    private Pattern patternKey;
-    private Pattern patternValue;
+    private final Pattern patternKey;
+    private final Pattern patternValue;
 
     public LibraryValidator(String patternKey, String patternValue) {
         this.patternKey = Pattern.compile(patternKey);

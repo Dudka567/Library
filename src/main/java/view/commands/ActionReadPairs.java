@@ -1,13 +1,12 @@
 package view.commands;
 
-import view.menu.ConsoleConstants;
 import controller.Library;
+import view.menu.ConsoleConstants;
 
 import java.util.List;
-import java.util.Map;
 
 public class ActionReadPairs extends ActionWithPairs implements Action {
-    private final String TITLE = ".Show the contents of the dictionary\n";
+    private static final String TITLE = ".Show the contents of the dictionary\n";
 
     public ActionReadPairs(List<Library> dictionaries) {
         super(dictionaries);

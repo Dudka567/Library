@@ -1,13 +1,12 @@
 package view.commands;
 
-import view.menu.ConsoleConstants;
 import controller.Library;
+import view.menu.ConsoleConstants;
 
 import java.util.List;
-import java.util.Map;
 
 public class ActionSearchPair extends ActionWithPairs implements Action {
-    private final String TITLE = ".Search records by key\n";
+    private static final String TITLE = ".Search records by key\n";
 
     public ActionSearchPair(List<Library> dictionaries) {
         super(dictionaries);

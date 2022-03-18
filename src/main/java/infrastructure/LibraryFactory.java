@@ -1,21 +1,27 @@
 package infrastructure;
 
 import controller.FileLibrary;
+import controller.Library;
 import controller.validators.LibraryValidator;
 import controller.validators.Validator;
 import model.FilesStorage;
-import controller.Library;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LibraryFactory {
-    private Config config;
+    private final Config config;
 
+    @Autowired
     public LibraryFactory(Config config) {
         this.config = config;
     }
 
+    @Bean("librariesInstance")
     public List<Library> createLibraries() {
         FileLibrary tempFileLibrary;
         Validator tempValidator;
@@ -41,6 +47,7 @@ public class LibraryFactory {
 
     }
 
+    @Bean("namesDictionariesInstance")
     public List<String> createNamesDictionaries() {
         List<Config.DictionaryConfig> configData = config.readConfig();
         List<String> namesDictionaries = new ArrayList<>();

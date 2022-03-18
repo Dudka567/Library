@@ -20,4 +20,6 @@ public class ConsoleConstants {
     public static final String ERROR_FIND_PAIRS = "The pair is missing from the dictionary.";
     public static final String INPUT_KEY = "Enter the key:";
     public static final String INPUT_VALUE = "Enter a value:";
+
+    private ConsoleConstants() {}
 }

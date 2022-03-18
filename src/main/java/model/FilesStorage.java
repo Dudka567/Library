@@ -10,9 +10,9 @@ import java.io.FileWriter;
 import java.util.Map;
 
 public class FilesStorage implements Storage {
-    private final static String SPLIT_CHAR = "-";
+    private static final String SPLIT_CHAR = "-";
     private static final String EXPANSION = "temp.txt";
-    private static final String PATTERN_NAME_LIBRARY_FILE = "../resources/";
+    private static final String PATTERN_NAME_LIBRARY_FILE = "src/main/resources/";
 
     private File dirLibrary;
 
@@ -28,10 +28,10 @@ public class FilesStorage implements Storage {
     public void readStorage(Map<String, String> library) {
         try (
                 FileInputStream descriptorPosition = new FileInputStream(dirLibrary);
-                BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition));
+                BufferedReader readerStream = new BufferedReader(new InputStreamReader(descriptorPosition))
         ) {
             descriptorPosition.getChannel().position(0);
-            String[] tempRead = new String[2];
+            String[] tempRead;
 
             while (readerStream.ready()) {
                 tempRead = readerStream.readLine().split(SPLIT_CHAR);
@@ -45,7 +45,7 @@ public class FilesStorage implements Storage {
     @Override
     public void writeStorage(Map<String, String> library) {
         try (
-                BufferedWriter writerStream = new BufferedWriter(new FileWriter(dirLibrary));
+                BufferedWriter writerStream = new BufferedWriter(new FileWriter(dirLibrary))
         ) {
             for (String elemKey : library.keySet()) {
                 writerStream.write(elemKey + SPLIT_CHAR + library.get(elemKey) + "\n");
@@ -86,7 +86,7 @@ public class FilesStorage implements Storage {
 
     public String createStorage(String expectedNameStorage) {
         File dirNewFile = new File(expectedNameStorage);
-        try (FileWriter writer = new FileWriter(dirNewFile)) {
+        try (FileWriter ignored = new FileWriter(dirNewFile)) {
             return dirNewFile.getPath();
         } catch (IOException e) {
             e.printStackTrace();
