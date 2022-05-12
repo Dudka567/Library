@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns: lang="ru">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>My app</title>
+</head>
+
+<body>
+<p>Какую операцию вы хотите выполнить?</p>
+<br/>
+<a th:href="@{'/work/add-pair-menu/?id=' + ${id}}">Добавление пары</a>
+<br/>
+<a th:href="@{'/work/delete-pair-menu/?id=' + ${id}}">Удаление пары</a>
+<br/>
+<a th:href="@{'/work/read-pairs/?id=' + ${id}}">Показать содержимое словаря</a>
+<br/>
+<a th:href="@{'/work/search-pair-menu/?id=' + ${id}}">Поиск пары по ключу</a>
+<br/>
+<a href="/MVC-spring/work/start">Вернуться к выбору словаря</a>
+</body>
+
+</html>

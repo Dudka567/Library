@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns: lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My app</title>
+</head>
+
+<body>
+<form action="/MVC-spring/work/delete-pair" method="post">
+    <div id="id_lib" th:text="${id}">Словарь</div>
+    <p>Введите ключ</p>
+
+    <div>
+        <p>Ключ</p>
+        <input type="text" id="key" name="key" value=""/>
+    </div>
+
+    <br/>
+    <div>
+    <button id="id" name="id" value="">Удалить пару</button>
+    </div>
+
+    <script>
+        document.getElementById('id').setAttribute("value",document.getElementById("id_lib").innerText);
+    </script>
+</form>
+</body>
+</html>
