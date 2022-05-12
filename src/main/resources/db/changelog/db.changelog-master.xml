@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="postgres">
         <insert tableName="rules" >
-            <column name="pattern" type="VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci">'[A-Za-z]{4}</column>
+            <column name="pattern" type="VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci">[A-Za-z]{4}</column>
         </insert>
         <insert tableName="rules" >
             <column name="pattern" type="VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci">[а-яёА-ЯЁ]{4}</column>
