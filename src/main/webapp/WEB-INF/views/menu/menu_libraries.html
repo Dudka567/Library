@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns: lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Libraries</title>
+    <style>
+        body{
+            background-color: #b9a5ec;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            color: #e1dedf;
+        }
+    </style>
+</head>
+<body>
+<p>С каким словарем вы хотите начать работу?</p>
+<div th:each="lib : ${libs}">
+    <a th:href="@{/work/work-lib-menu(id=${lib.getId()})}" th:text="${lib.getSource_language().getName()+'/'+lib.getTarget_language().getName()}">Dictionary</a>
+</div>
+</body>
+</html>
